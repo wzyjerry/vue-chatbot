@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import dbIndex from "@/db/agent/index.js";
 export default {
   name: "Index"
 };

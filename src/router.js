@@ -21,12 +21,8 @@ export default new Router({
         {
           path: "create",
           name: "agentCreate",
-          components: {
-            default: () =>
-              import(/* webpackChunkName: "Agent" */ "./views/agent/Create.vue"),
-            aside: () =>
-              import(/* webpackChunkName: "Agent" */ "./views/agent/Aside.vue")
-          }
+          component: () =>
+            import(/* webpackChunkName: "Agent" */ "./views/agent/Create.vue")
         }
       ]
     }
