@@ -74,7 +74,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.createAgent(this.agent);
-          this.$router.push("agentIndex");
+          this.$router.push({ name: "agentIndex" });
         } else {
           return false;
         }

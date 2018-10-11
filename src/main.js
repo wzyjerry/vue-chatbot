@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./plugins/element.js";
-import "@/db/mockData.js";
+import "@/db";
 
 Vue.config.productionTip = false;
 

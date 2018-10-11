@@ -18,6 +18,9 @@ const actions = {
   },
   createAgent: async (_, data) => {
     agent.createAgent(data);
+  },
+  getAgentList: async (_, id) => {
+    return agent.getAgentList(id);
   }
 };
 
