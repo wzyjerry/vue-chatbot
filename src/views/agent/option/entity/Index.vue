@@ -1,24 +1,19 @@
 <template>
   <el-main>
-    <template v-if="agentList">
-      <el-table :data="agentList.list">
+    <template v-if="entityList">
+      <el-table :data="entityList.list">
         <el-table-column prop="index" label="#" width="80px"/>
         <el-table-column prop="name" label="Name"/>
-        <el-table-column label="Language">
-          <template slot-scope="scope">
-            <el-tag v-for="(lang, index) in scope.row.lang" :key="index">
-              {{ lang }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column width="80px">
+        <el-table-column label="Operations">
           <template slot-scope="scope">
             <el-button icon="el-icon-setting" circle @click="viewAgent(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-row type="flex" justify="end" class="create">
-          <el-button @click="$router.push({ name: 'agentCreate' })" icon="el-icon-circle-plus-outline">Create Agent</el-button>
+        <el-col :span="6">
+          <el-button @click="$router.push({ name: 'optionEntityCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">Create Entity</el-button>
+        </el-col>
       </el-row>
       <div class="page">
         <el-pagination
@@ -26,8 +21,8 @@
           :current-page.sync="id"
           :page-size="5"
           layout="total, prev, pager, next, jumper"
-          :page-count="agentList.totalPage"
-          :total="agentList.totalItems">
+          :page-count="entityList.totalPage"
+          :total="entityList.totalItems">
         </el-pagination>
       </div>
     </template>
@@ -36,27 +31,29 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("agent");
+const { mapActions } = createNamespacedHelpers("entity");
 
 export default {
   name: "Index",
   data: function() {
     return {
       id: 1,
-      agentList: undefined
+      entityList: undefined
     };
   },
   methods: {
-    ...mapActions(["getAgentList"]),
+    ...mapActions(["getEntityList"]),
     loadPage(id) {
-      this.getAgentList(id).then(agentList => {
-        this.agentList = agentList;
-      });
+      this.getEntityList({ agentId: this.$route.params.agentId, id }).then(
+        entityList => {
+          this.entityList = entityList;
+        }
+      );
     },
     viewAgent(row) {
       this.$router.push({
         name: "agentView",
-        params: { agentId: row.id }
+        params: { agentId: row.name.replace(new RegExp(" ", "gm"), "_") }
       });
     }
   },

@@ -1,22 +1,6 @@
 const Mock = require("mockjs");
 
-Mock.mock(RegExp("http://api/agent/create"), "post", options => {
-  console.debug(JSON.parse(options.body));
-});
-
-Mock.mock(RegExp("http://api/agent/edit/.*"), "put", options => {
-  console.debug(JSON.parse(options.body));
-});
-
-Mock.mock(RegExp("http://api/agent/view/.*"), "get", options => {
-  const agent = {
-    id: options.url.split("/").pop(),
-    name: "@title(1, 3)"
-  };
-  return Mock.mock(agent);
-});
-
-Mock.mock(RegExp("http://api/agent/index.*"), "get", options => {
+Mock.mock(RegExp("http://api/agent/view/.*/entity/index.*"), "get", options => {
   const pageIndex = parseInt(options.url.getParam("id"), 10);
   const perPage = 5;
   const totalItems = 73;
@@ -33,7 +17,7 @@ Mock.mock(RegExp("http://api/agent/index.*"), "get", options => {
         {
           "index|+1": (pageIndex - 1) * perPage + 1,
           id: "@guid",
-          name: "@title(1, 3)"
+          name: "@title(1)"
         }
       ]
     };
@@ -45,10 +29,14 @@ Mock.mock(RegExp("http://api/agent/index.*"), "get", options => {
         {
           "index|+1": (pageIndex - 1) * perPage + 1,
           id: "@guid",
-          name: "@title(1, 3)"
+          name: "@title(1)"
         }
       ]
     };
   }
   return Mock.mock(agentList);
+});
+
+Mock.mock(RegExp("http://api/agent/view/.*/entity/create"), "post", options => {
+  console.debug(JSON.parse(options.body));
 });

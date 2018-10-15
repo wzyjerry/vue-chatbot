@@ -1,41 +1,21 @@
 import agent from "@/api/agent";
 
-const state = {
-  languages: undefined,
-  timeZones: undefined
-};
-
 const actions = {
-  loadLanguages: async ({ state, commit }) => {
-    if (state.languages === undefined) {
-      commit("setLanguages", await agent.getLanguages());
-    }
-  },
-  loadTimeZones: async ({ state, commit }) => {
-    if (state.timeZones === undefined) {
-      commit("setTimeZones", await agent.getTimeZones());
-    }
-  },
   createAgent: async (_, data) => {
-    agent.createAgent(data);
+    await agent.createAgent(data);
+  },
+  editAgent: async (_, { id, data }) => {
+    await agent.editAgent(id, data);
+  },
+  viewAgent: async (_, id) => {
+    return await agent.viewAgent(id);
   },
   getAgentList: async (_, id) => {
-    return agent.getAgentList(id);
-  }
-};
-
-const mutations = {
-  setLanguages: (state, languages) => {
-    state.languages = languages;
-  },
-  setTimeZones: (state, timeZones) => {
-    state.timeZones = timeZones;
+    return await agent.getAgentList(id);
   }
 };
 
 export default {
   namespaced: true,
-  state,
-  actions,
-  mutations
+  actions
 };
