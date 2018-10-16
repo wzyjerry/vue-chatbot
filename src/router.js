@@ -25,12 +25,12 @@ export default new Router({
         },
         {
           path: "view/:agentId",
-          name: "agentView",
+          name: "agentEdit",
           components: {
             aside: () =>
               import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
             default: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Setting.vue")
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/Edit.vue")
           }
         },
         {
@@ -51,6 +51,16 @@ export default new Router({
               import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
             default: () =>
               import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Create.vue")
+          }
+        },
+        {
+          path: "view/:agentId/entity/edit/:entityId",
+          name: "optionEntityEdit",
+          components: {
+            aside: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            default: () =>
+              import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Edit.vue")
           }
         }
       ]

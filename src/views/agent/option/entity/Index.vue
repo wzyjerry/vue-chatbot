@@ -4,16 +4,15 @@
       <el-table :data="entityList.list">
         <el-table-column prop="index" label="#" width="80px"/>
         <el-table-column prop="name" label="Name"/>
-        <el-table-column label="Operations">
+        <el-table-column width="160px">
           <template slot-scope="scope">
-            <el-button icon="el-icon-setting" circle @click="viewAgent(scope.row)"></el-button>
+            <el-button icon="el-icon-setting" circle @click="editEntity(scope.row)"></el-button>
+            <el-button icon="el-icon-close" type="danger" circle @click="removeConfirm(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-row type="flex" justify="end" class="create">
-        <el-col :span="6">
-          <el-button @click="$router.push({ name: 'optionEntityCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">Create Entity</el-button>
-        </el-col>
+        <el-button @click="$router.push({ name: 'optionEntityCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">Create Entity</el-button>
       </el-row>
       <div class="page">
         <el-pagination
@@ -42,19 +41,47 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["getEntityList"]),
+    ...mapActions(["getList", "remove"]),
     loadPage(id) {
-      this.getEntityList({ agentId: this.$route.params.agentId, id }).then(
+      this.getList({ agentId: this.$route.params.agentId, id }).then(
         entityList => {
           this.entityList = entityList;
         }
       );
     },
-    viewAgent(row) {
+    editEntity(row) {
       this.$router.push({
-        name: "agentView",
-        params: { agentId: row.name.replace(new RegExp(" ", "gm"), "_") }
+        name: "optionEntityEdit",
+        params: {
+          agentId: this.$route.params.agentId,
+          entityId: row.id
+        }
       });
+    },
+    removeConfirm(row) {
+      this.$confirm(
+        `Are you sure you would like to delete entity "${row.name}"?`,
+        "Delete Entity",
+        {
+          confirmButtonText: "DELETE",
+          cancelButtonText: "CANCEL",
+          type: "warning"
+        }
+      )
+        .then(() => {
+          this.remove({
+            agentId: this.$route.params.agentId,
+            id: row.id
+          });
+          this.id = 1;
+          this.loadPage(this.id);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "Canceled"
+          });
+        });
     }
   },
   mounted: function() {

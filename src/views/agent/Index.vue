@@ -4,16 +4,9 @@
       <el-table :data="agentList.list">
         <el-table-column prop="index" label="#" width="80px"/>
         <el-table-column prop="name" label="Name"/>
-        <el-table-column label="Language">
-          <template slot-scope="scope">
-            <el-tag v-for="(lang, index) in scope.row.lang" :key="index">
-              {{ lang }}
-            </el-tag>
-          </template>
-        </el-table-column>
         <el-table-column width="80px">
           <template slot-scope="scope">
-            <el-button icon="el-icon-setting" circle @click="viewAgent(scope.row)"></el-button>
+            <el-button icon="el-icon-setting" circle @click="editAgent(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -47,15 +40,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["getAgentList"]),
+    ...mapActions(["getList"]),
     loadPage(id) {
-      this.getAgentList(id).then(agentList => {
+      this.getList(id).then(agentList => {
         this.agentList = agentList;
       });
     },
-    viewAgent(row) {
+    editAgent(row) {
       this.$router.push({
-        name: "agentView",
+        name: "agentEdit",
         params: { agentId: row.id }
       });
     }

@@ -1,17 +1,20 @@
 import agent from "@/api/agent";
 
 const actions = {
-  createAgent: async (_, data) => {
-    await agent.createAgent(data);
+  create: async (_, data) => {
+    await agent.create(data);
   },
-  editAgent: async (_, { id, data }) => {
-    await agent.editAgent(id, data);
+  edit: async (_, { id, data }) => {
+    await agent.edit(id, data);
   },
-  viewAgent: async (_, id) => {
-    return await agent.viewAgent(id);
+  view: async (_, id) => {
+    return await agent.view(id);
   },
-  getAgentList: async (_, id) => {
-    return await agent.getAgentList(id);
+  remove: async (_, id) => {
+    await agent.remove(id);
+  },
+  getList: async (_, id) => {
+    return await agent.getList(id);
   }
 };
 

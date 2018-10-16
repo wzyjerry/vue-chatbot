@@ -2,6 +2,9 @@
   <el-main>
     <el-col :span="12">
       <el-form :model="entity" ref="entity" label-width="200px" :rules="rules">
+        <el-form-item label="ID">
+          <span>{{ entity.id }}</span>
+        </el-form-item>
         <el-form-item label="Name" prop="name">
           <el-input v-model="entity.name" placeholder="Entity Name"></el-input>
         </el-form-item>
@@ -44,7 +47,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm">Create</el-button>
+          <el-button type="primary" @click="submitForm">Save</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -56,7 +59,7 @@ import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("entity");
 
 export default {
-  name: "Create",
+  name: "Edit",
   data: function() {
     return {
       perPage: 10,
@@ -78,20 +81,28 @@ export default {
       }
     };
   },
+  mounted: function() {
+    this.view({
+      agentId: this.$route.params.agentId,
+      id: this.$route.params.entityId
+    }).then(entity => {
+      this.entity = entity;
+      this.loadShowContents();
+    });
+  },
   methods: {
-    ...mapActions(["create"]),
+    ...mapActions(["view", "edit"]),
     submitForm() {
       this.$refs.entity.validate(valid => {
         if (valid) {
-          this.create({
+          this.edit({
             agentId: this.$route.params.agentId,
+            id: this.$route.params.entityId,
             data: this.entity
           });
-          this.$router.push({
-            name: "optionEntityIndex",
-            params: {
-              agentId: this.$route.params.agentId
-            }
+          this.$message({
+            type: "success",
+            message: "Saved"
           });
         } else {
           return false;

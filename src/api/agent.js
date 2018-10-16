@@ -1,28 +1,33 @@
 import ajax from "./config.js";
 
-async function createAgent(data) {
+async function create(data) {
   await ajax.post("/agent/create", data);
 }
 
-async function editAgent(id, data) {
+async function edit(id, data) {
   await ajax.put(`/agent/edit/${id}`, data);
 }
 
-async function viewAgent(id) {
+async function view(id) {
   return await ajax.get(`/agent/view/${id}`).then(response => {
     return response.data;
   });
 }
 
-async function getAgentList(id) {
+async function remove(id) {
+  await ajax.delete(`/agent/delete/${id}`);
+}
+
+async function getList(id) {
   return await ajax.get(`/agent/index?id=${id}`).then(response => {
     return response.data;
   });
 }
 
 export default {
-  createAgent,
-  editAgent,
-  viewAgent,
-  getAgentList
+  create,
+  edit,
+  view,
+  remove,
+  getList
 };

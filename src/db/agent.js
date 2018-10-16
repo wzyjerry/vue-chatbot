@@ -1,14 +1,14 @@
 const Mock = require("mockjs");
 
-Mock.mock(RegExp("http://api/agent/create"), "post", options => {
+Mock.mock(RegExp("http://api/agent/create$"), "post", options => {
   console.debug(JSON.parse(options.body));
 });
 
-Mock.mock(RegExp("http://api/agent/edit/.*"), "put", options => {
+Mock.mock(RegExp("http://api/agent/edit/[^/]*$"), "put", options => {
   console.debug(JSON.parse(options.body));
 });
 
-Mock.mock(RegExp("http://api/agent/view/.*"), "get", options => {
+Mock.mock(RegExp("http://api/agent/view/[^/]*$"), "get", options => {
   const agent = {
     id: options.url.split("/").pop(),
     name: "@title(1, 3)"
@@ -16,7 +16,11 @@ Mock.mock(RegExp("http://api/agent/view/.*"), "get", options => {
   return Mock.mock(agent);
 });
 
-Mock.mock(RegExp("http://api/agent/index.*"), "get", options => {
+Mock.mock(RegExp("http://api/agent/delete/[^/]*$"), "delete", options => {
+  console.debug(`Delete agent: ${options.url.split("/").pop()}`);
+});
+
+Mock.mock(RegExp("http://api/agent/index[^/]*$"), "get", options => {
   const pageIndex = parseInt(options.url.getParam("id"), 10);
   const perPage = 5;
   const totalItems = 73;

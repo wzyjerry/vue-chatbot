@@ -34,11 +34,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["createAgent"]),
+    ...mapActions(["create"]),
     submitForm() {
       this.$refs.agent.validate(valid => {
         if (valid) {
-          this.createAgent(this.agent);
+          this.create(this.agent);
           this.$router.push({ name: "agentIndex" });
         } else {
           return false;
