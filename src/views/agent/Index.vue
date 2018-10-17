@@ -40,9 +40,9 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["getList"]),
+    ...mapActions(["page"]),
     loadPage(id) {
-      this.getList(id).then(agentList => {
+      this.page(id).then(agentList => {
         this.agentList = agentList;
       });
     },

@@ -13,8 +13,8 @@ const actions = {
   remove: async (_, id) => {
     await agent.remove(id);
   },
-  getList: async (_, id) => {
-    return await agent.getList(id);
+  page: async (_, id) => {
+    return await agent.page(id);
   }
 };
 

@@ -1,6 +1,6 @@
 <template>
   <el-main>
-    <el-col :span="12">
+    <el-col :offset="4" :span="12">
       <el-form :model="entity" ref="entity" label-width="200px" :rules="rules">
         <el-form-item label="ID">
           <span>{{ entity.id }}</span>
@@ -144,7 +144,7 @@ export default {
       this.entity.contents.splice(index, 1);
       this.loadShowContents();
     },
-    upload: function(file) {
+    upload(file) {
       const reader = new FileReader();
       reader.onload = e => {
         this.$confirm(

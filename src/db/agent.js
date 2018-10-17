@@ -16,11 +16,11 @@ Mock.mock(RegExp("http://api/agent/view/[^/]*$"), "get", options => {
   return Mock.mock(agent);
 });
 
-Mock.mock(RegExp("http://api/agent/delete/[^/]*$"), "delete", options => {
+Mock.mock(RegExp("http://api/agent/remove/[^/]*$"), "delete", options => {
   console.debug(`Delete agent: ${options.url.split("/").pop()}`);
 });
 
-Mock.mock(RegExp("http://api/agent/index[^/]*$"), "get", options => {
+Mock.mock(RegExp("http://api/agent/page[^/]*$"), "get", options => {
   const pageIndex = parseInt(options.url.getParam("id"), 10);
   const perPage = 5;
   const totalItems = 73;

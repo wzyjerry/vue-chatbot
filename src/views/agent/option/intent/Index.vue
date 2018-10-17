@@ -1,18 +1,20 @@
 <template>
   <el-main>
-    <template v-if="entityList">
-      <el-table :data="entityList.list">
+    <template v-if="intentList">
+      <el-table :data="intentList.list">
         <el-table-column prop="index" label="#" width="80px"/>
         <el-table-column prop="name" label="Name"/>
+        <el-table-column prop="weight" label="Weight"/>
         <el-table-column width="160px">
           <template slot-scope="scope">
-            <el-button icon="el-icon-setting" circle @click="editEntity(scope.row)"></el-button>
+            <el-button icon="el-icon-setting" circle @click="editIntent(scope.row)"></el-button>
+            <el-button icon="el-icon-menu" type="primary" circle @click="intentMenu(scope.row)"></el-button>
             <el-button icon="el-icon-close" type="danger" circle @click="removeConfirm(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-row type="flex" justify="end" class="create">
-        <el-button @click="$router.push({ name: 'optionEntityCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">Create Entity</el-button>
+        <el-button @click="$router.push({ name: 'optionIntentCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">Create Intent</el-button>
       </el-row>
       <div class="page">
         <el-pagination
@@ -20,8 +22,8 @@
           :current-page.sync="id"
           :page-size="5"
           layout="total, prev, pager, next, jumper"
-          :page-count="entityList.totalPage"
-          :total="entityList.totalItems">
+          :page-count="intentList.totalPage"
+          :total="intentList.totalItems">
         </el-pagination>
       </div>
     </template>
@@ -30,38 +32,47 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("entity");
+const { mapActions } = createNamespacedHelpers("intent");
 
 export default {
   name: "Index",
   data: function() {
     return {
       id: 1,
-      entityList: undefined
+      intentList: undefined
     };
   },
   methods: {
     ...mapActions(["page", "remove"]),
     loadPage(id) {
       this.page({ agentId: this.$route.params.agentId, id }).then(
-        entityList => {
-          this.entityList = entityList;
+        intentList => {
+          this.intentList = intentList;
         }
       );
     },
-    editEntity(row) {
+    editIntent(row) {
       this.$router.push({
-        name: "optionEntityEdit",
+        name: "optionIntentEdit",
         params: {
           agentId: this.$route.params.agentId,
-          entityId: row.id
+          intentId: row.id
+        }
+      });
+    },
+    intentMenu(row) {
+      this.$router.push({
+        name: "optionIntentMenu",
+        params: {
+          agentId: this.$route.params.agentId,
+          intentId: row.id
         }
       });
     },
     removeConfirm(row) {
       this.$confirm(
-        `Are you sure you would like to delete entity "${row.name}"?`,
-        "Delete Entity",
+        `Are you sure you would like to delete intent "${row.name}"?`,
+        "Delete Intent",
         {
           confirmButtonText: "DELETE",
           cancelButtonText: "CANCEL",

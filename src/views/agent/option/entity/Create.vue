@@ -1,6 +1,6 @@
 <template>
   <el-main>
-    <el-col :span="12">
+    <el-col :offset="4" :span="12">
       <el-form :model="entity" ref="entity" label-width="200px" :rules="rules">
         <el-form-item label="Name" prop="name">
           <el-input v-model="entity.name" placeholder="Entity Name"></el-input>

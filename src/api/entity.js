@@ -17,16 +17,21 @@ async function view(agentId, id) {
 }
 
 async function remove(agentId, id) {
-  await ajax.delete(`/agent/view/${agentId}/entity/delete/${id}`);
+  await ajax.delete(`/agent/view/${agentId}/entity/remove/${id}`);
 }
 
-async function getList(agentId, id) {
-  const entityList = await ajax
-    .get(`/agent/view/${agentId}/entity/index?id=${id}`)
+async function page(agentId, id) {
+  return await ajax
+    .get(`/agent/view/${agentId}/entity/page?id=${id}`)
     .then(response => {
       return response.data;
     });
-  return entityList;
+}
+
+async function list(agentId) {
+  return await ajax.get(`/agent/view/${agentId}/entity/list`).then(response => {
+    return response.data.list;
+  });
 }
 
 export default {
@@ -34,5 +39,6 @@ export default {
   edit,
   view,
   remove,
-  getList
+  page,
+  list
 };

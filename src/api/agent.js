@@ -15,11 +15,11 @@ async function view(id) {
 }
 
 async function remove(id) {
-  await ajax.delete(`/agent/delete/${id}`);
+  await ajax.delete(`/agent/remove/${id}`);
 }
 
-async function getList(id) {
-  return await ajax.get(`/agent/index?id=${id}`).then(response => {
+async function page(id) {
+  return await ajax.get(`/agent/page?id=${id}`).then(response => {
     return response.data;
   });
 }
@@ -29,5 +29,5 @@ export default {
   edit,
   view,
   remove,
-  getList
+  page
 };

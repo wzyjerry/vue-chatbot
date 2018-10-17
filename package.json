@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "@types/d3": "^5.0.0",
+    "@types/jquery": "^3.3.19",
     "axios": "^0.18.0",
+    "d3": "^5.7.0",
     "element-ui": "^2.4.5",
+    "jquery": "^3.3.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

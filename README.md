@@ -1,26 +1,8 @@
 # vue-chatbot
 
-## Project setup
-```
-npm install
-```
+Chatbot
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+项目部署在[GitPage](https://wzyjerry.github.io/vue-chatbot/dist/#/), 版本号0.1.0
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+---
+TODO: README

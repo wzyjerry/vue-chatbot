@@ -62,6 +62,56 @@ export default new Router({
             default: () =>
               import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Edit.vue")
           }
+        },
+        {
+          path: "view/:agentId/intent/index",
+          name: "optionIntentIndex",
+          components: {
+            aside: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            default: () =>
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Index.vue")
+          }
+        },
+        {
+          path: "view/:agentId/intent/create",
+          name: "optionIntentCreate",
+          components: {
+            aside: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            default: () =>
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Create.vue")
+          }
+        },
+        {
+          path: "view/:agentId/intent/edit/:intentId",
+          name: "optionIntentEdit",
+          components: {
+            aside: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            default: () =>
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Edit.vue")
+          }
+        },
+        {
+          path: "view/:agentId/intent/menu/:intentId",
+          name: "optionIntentMenu",
+          components: {
+            aside: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            default: () =>
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Menu.vue")
+          }
+        },
+        {
+          path: "view/:agentId/train/index",
+          name: "optionTrainIndex",
+          components: {
+            aside: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            default: () =>
+              import(/* webpackChunkName: "OptionTrain" */ "./views/agent/option/train/Index.vue")
+          }
         }
       ]
     }

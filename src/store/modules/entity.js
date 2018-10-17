@@ -1,20 +1,23 @@
 import entity from "@/api/entity";
 
 const actions = {
-  create: async (_, { agentId, data }) => {
+  async create(_, { agentId, data }) {
     await entity.create(agentId, data);
   },
-  edit: async (_, { agentId, id, data }) => {
+  async edit(_, { agentId, id, data }) {
     await entity.edit(agentId, id, data);
   },
-  view: async (_, { agentId, id }) => {
+  async view(_, { agentId, id }) {
     return await entity.view(agentId, id);
   },
-  remove: async (_, { agentId, id }) => {
+  async remove(_, { agentId, id }) {
     await entity.remove(agentId, id);
   },
-  getList: async (_, { agentId, id }) => {
-    return await entity.getList(agentId, id);
+  async page(_, { agentId, id }) {
+    return await entity.page(agentId, id);
+  },
+  async list(_, { agentId }) {
+    return await entity.list(agentId);
   }
 };
 

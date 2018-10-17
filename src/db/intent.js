@@ -1,7 +1,7 @@
 const Mock = require("mockjs");
 
 Mock.mock(
-  RegExp("http://api/agent/view/[^/]*/entity/create$"),
+  RegExp("http://api/agent/view/[^/]*/intent/create$"),
   "post",
   options => {
     console.debug(JSON.parse(options.body));
@@ -9,7 +9,7 @@ Mock.mock(
 );
 
 Mock.mock(
-  RegExp("http://api/agent/view/[^/]*/entity/edit/[^/]*$"),
+  RegExp("http://api/agent/view/[^/]*/intent/edit/[^/]*$"),
   "put",
   options => {
     console.debug(JSON.parse(options.body));
@@ -17,79 +17,82 @@ Mock.mock(
 );
 
 Mock.mock(
-  RegExp("http://api/agent/view/[^/]*/entity/view/[^/]*$"),
+  RegExp("http://api/agent/view/[^/]*/intent/setting/[^/]*$"),
+  "put",
+  options => {
+    console.debug(JSON.parse(options.body));
+  }
+);
+
+Mock.mock(
+  RegExp("http://api/agent/view/[^/]*/intent/view/[^/]*$"),
   "get",
   options => {
-    const entity = {
+    const intent = {
       id: options.url.split("/").pop(),
-      name: "@title(1, 3)",
-      "contents|30-75": ["SomeValue"]
+      root: {
+        type: "intent",
+        intent: "@name",
+        "weight|1-10.2": 1,
+        children: [
+          {
+            type: "holder",
+            children: []
+          }
+        ]
+      }
     };
-    return Mock.mock(entity);
+    return Mock.mock(intent);
   }
 );
 
 Mock.mock(
-  RegExp("http://api/agent/view/[^/]*/entity/remove/[^/]*$"),
+  RegExp("http://api/agent/view/[^/]*/intent/remove/[^/]*$"),
   "delete",
   options => {
-    console.debug(`Delete entity: ${options.url.split("/").pop()}`);
+    console.debug(`Delete intent: ${options.url.split("/").pop()}`);
   }
 );
 
 Mock.mock(
-  RegExp("http://api/agent/view/[^/]*/entity/page[^/]*$"),
+  RegExp("http://api/agent/view/[^/]*/intent/page[^/]*$"),
   "get",
   options => {
     const pageIndex = parseInt(options.url.getParam("id"), 10);
     const perPage = 5;
     const totalItems = 73;
     const totalPage = 15;
-    let entityList = {
+    let intentList = {
       totalItems: totalItems,
       totalPage: totalPage
     };
     if (pageIndex < totalPage) {
-      entityList = {
+      intentList = {
         totalItems: totalItems,
         totalPage: totalPage,
         "list|5": [
           {
             "index|+1": (pageIndex - 1) * perPage + 1,
             id: "@guid",
-            name: "@title(1)"
+            name: "@title(1)",
+            "weight|1-10.2": 1
           }
         ]
       };
     } else if (pageIndex === totalPage) {
-      entityList = {
+      intentList = {
         totalItems: totalItems,
         totalPage: totalPage,
         "list|1-4": [
           {
             "index|+1": (pageIndex - 1) * perPage + 1,
             id: "@guid",
-            name: "@title(1)"
+            name: "@title(1)",
+            "weight|1-10.2": 1
           }
         ]
       };
     }
-    return Mock.mock(entityList);
+    return Mock.mock(intentList);
   }
 );
-
-Mock.mock(RegExp("http://api/agent/view/[^/]*/entity/list$"), "get", () => {
-  const entityList = Mock.mock({
-    "list|12-16": [
-      {
-        label: "@title(1)",
-        value: "@guid"
-      }
-    ]
-  });
-  entityList.list.push({
-    label: "Test",
-    value: "BCADD7BA-b10b-C84c-b1C8-57bF9CFBAb18"
-  });
-  return entityList;
-});
