@@ -5,24 +5,24 @@
         <el-form :model="agent" ref="agent" label-width="200px" :rules="rules">
           <el-form-item label="ID">
             <span>{{ agent.id }}</span>
-            <el-button type="primary" @click="submitForm" style="margin-left: 20px;">Save</el-button>
+            <el-button type="primary" @click="submitForm" style="margin-left: 20px;">{{ $t("common.save") }}</el-button>
           </el-form-item>
-          <el-form-item label="Name" prop="name">
-              <el-input v-model="agent.name" placeholder="Agent Name"></el-input>
+          <el-form-item :label="$t('agent.name')" prop="name">
+              <el-input v-model="agent.name" :placeholder="$t('agent.name')"></el-input>
           </el-form-item>
           <el-form-item>
             <el-card class="danger-zone">
               <div slot="header">
                 <i class="el-icon-warning"></i>
-                <span style="margin-left: 20px;">DANGER ZONE</span>
+                <span style="margin-left: 20px;">{{ $t('agent.edit.dangerZone.name') }}</span>
               </div>
               <div>
                 <el-col :span="18">
-                  <p class="title">Delete Agent</p>
-                  <p class="content">Are you sure you want to delete agent <strong>{{ agent.name }}</strong>? This will destroy the agent with all corresponding data and cannot be undone!</p>
+                  <p class="title">{{ $t('agent.edit.dangerZone.title') }}</p>
+                  <p class="content">{{ $t('agent.edit.dangerZone.info', [agent.name]) }}</p>
                 </el-col>
                 <el-col :span="6" style="margin-top: 50px; margin-bottom: 10px">
-                  <el-button type="danger" plain @click="removeConfirm">DELETE THIS AGENT</el-button>
+                  <el-button type="danger" plain @click="removeConfirm">{{ $t('agent.edit.dangerZone.confirm') }}</el-button>
                 </el-col>
               </div>
             </el-card>
@@ -46,12 +46,20 @@ export default {
         name: [
           {
             required: true,
-            message: "Please enter agent name",
+            message: this.$t("common.required", [this.$t("agent.name")]),
             trigger: "blur"
           }
         ]
       }
     };
+  },
+  watch: {
+    $route() {
+      this.rules.name[0].message = this.$t("common.required", [
+        this.$t("agent.name")
+      ]);
+      this.$refs.agent.validate();
+    }
   },
   mounted: function() {
     this.view(this.$route.params.agentId).then(agent => {

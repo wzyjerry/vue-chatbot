@@ -3,7 +3,7 @@
     <template v-if="entityList">
       <el-table :data="entityList.list">
         <el-table-column prop="index" label="#" width="80px"/>
-        <el-table-column prop="name" label="Name"/>
+        <el-table-column prop="name" :label="$t('entity.name')"/>
         <el-table-column width="160px">
           <template slot-scope="scope">
             <el-button icon="el-icon-setting" circle @click="editEntity(scope.row)"></el-button>
@@ -12,7 +12,7 @@
         </el-table-column>
       </el-table>
       <el-row type="flex" justify="end" class="create">
-        <el-button @click="$router.push({ name: 'optionEntityCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">Create Entity</el-button>
+        <el-button @click="$router.push({ name: 'optionEntityCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">{{ $t("entity.index.create") }}</el-button>
       </el-row>
       <div class="page">
         <el-pagination
@@ -60,11 +60,11 @@ export default {
     },
     removeConfirm(row) {
       this.$confirm(
-        `Are you sure you would like to delete entity "${row.name}"?`,
-        "Delete Entity",
+        this.$t("entity.delete.info", [row.name]),
+        this.$t("entity.delete.title"),
         {
-          confirmButtonText: "DELETE",
-          cancelButtonText: "CANCEL",
+          confirmButtonText: this.$t("common.delete"),
+          cancelButtonText: this.$t("common.cancel"),
           type: "warning"
         }
       )
@@ -79,7 +79,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "Canceled"
+            message: this.$t("common.canceled")
           });
         });
     }
