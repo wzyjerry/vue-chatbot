@@ -2,10 +2,10 @@
   <el-main>
     <el-col :offset="4" :span="12">
       <el-form :model="entity" ref="entity" label-width="200px" :rules="rules">
-        <el-form-item label="Name" prop="name">
-          <el-input v-model="entity.name" placeholder="Entity Name"></el-input>
+        <el-form-item :label="$t('entity.name')" prop="name">
+          <el-input v-model="entity.name" :placeholder="$t('entity.name')"></el-input>
         </el-form-item>
-        <el-form-item label="Upload Entities">
+        <el-form-item :label="$t('entity.upload.name')">
           <el-upload
             ref="upload"
             :on-change="upload"
@@ -14,14 +14,14 @@
             action="#"
             multiple>
             <i class="el-icon-upload"></i>
-            <div class="el-upload__text">Drag and drop txt files there, or <em>click</em> to upload</div>
-            <div slot="tip" class="el-upload__tip">Can only upload txt file, each line contains a value</div>
+            <div class="el-upload__text">{{ $t("entity.upload.start") }}<em>{{ $t("entity.upload.mid") }}</em>{{ $t("entity.upload.end") }}</div>
+            <div slot="tip" class="el-upload__tip">{{ $t("entity.upload.tip") }}</div>
           </el-upload>
         </el-form-item>
-        <el-form-item label="Contents">
+        <el-form-item :label="$t('entity.content')">
           <el-table :data="showContents">
             <el-table-column label="#" prop="index" width="80px"></el-table-column>
-            <el-table-column label="Value" prop="value"></el-table-column>
+            <el-table-column :label="$t('entity.value')" prop="value"></el-table-column>
             <el-table-column width="80px">
               <template slot-scope="scope">
                 <el-button type="danger" icon="el-icon-close" circle @click="remove(scope.row)"></el-button>
@@ -38,13 +38,13 @@
             :total="entity.contents.length">
           </el-pagination>
         </el-form-item>
-        <el-form-item label="Add Content">
-          <el-input placeholder="Value" v-model="value">
+        <el-form-item :label="$t('entity.addContent')">
+          <el-input :placeholder="$t('entity.value')" v-model="value">
             <el-button slot="append" icon="el-icon-circle-plus-outline" @click="append"></el-button>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm">Create</el-button>
+          <el-button type="primary" @click="submitForm">{{ $t("common.create") }}</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -124,9 +124,11 @@ export default {
       });
     },
     append() {
-      this.entity.contents.push(this.value);
-      this.value = "";
-      this.loadShowContents();
+      if (this.value !== "") {
+        this.entity.contents.push(this.value);
+        this.value = "";
+        this.loadShowContents();
+      }
     },
     remove(row) {
       const index = this.entity.contents.indexOf(row.value);

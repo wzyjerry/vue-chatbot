@@ -2,11 +2,11 @@
   <el-main>
     <el-col :offset="4" :span="12">
       <el-form :model="agent" ref="agent" label-width="200px" :rules="rules">
-        <el-form-item label="Name" prop="name">
-          <el-input v-model="agent.name" placeholder="Agent Name"></el-input>
+        <el-form-item :label="$t('agent.name')" prop="name">
+          <el-input v-model="agent.name" :placeholder="$t('agent.name')"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm">Create</el-button>
+          <el-button type="primary" @click="submitForm">{{ $t("common.create") }}</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -26,12 +26,20 @@ export default {
         name: [
           {
             required: true,
-            message: "Please enter agent name",
+            message: this.$t("common.required", [this.$t("agent.name")]),
             trigger: "blur"
           }
         ]
       }
     };
+  },
+  watch: {
+    $route() {
+      this.rules.name[0].message = this.$t("common.required", [
+        this.$t("agent.name")
+      ]);
+      this.$refs.agent.validate();
+    }
   },
   methods: {
     ...mapActions(["create"]),

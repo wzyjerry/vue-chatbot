@@ -3,7 +3,7 @@
     <template v-if="agentList">
       <el-table :data="agentList.list">
         <el-table-column prop="index" label="#" width="80px"/>
-        <el-table-column prop="name" label="Name"/>
+        <el-table-column prop="name" :label="$t('agent.name')"/>
         <el-table-column width="80px">
           <template slot-scope="scope">
             <el-button icon="el-icon-setting" circle @click="editAgent(scope.row)"></el-button>
@@ -11,7 +11,7 @@
         </el-table-column>
       </el-table>
       <el-row type="flex" justify="end" class="create">
-          <el-button @click="$router.push({ name: 'agentCreate' })" icon="el-icon-circle-plus-outline">Create Agent</el-button>
+        <el-button @click="$router.push({ name: 'agentCreate' })" icon="el-icon-circle-plus-outline">{{ $t("agent.index.create") }}</el-button>
       </el-row>
       <div class="page">
         <el-pagination

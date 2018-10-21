@@ -3,10 +3,15 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
-      path: "/agent",
+      path: "/:lang",
+      name: "home",
+      component: () => import(/* webpackChunkName: "Home" */ "./views/Home.vue")
+    },
+    {
+      path: "/:lang/agent",
       name: "agent",
       component: () =>
         import(/* webpackChunkName: "Agent" */ "./views/agent/Agent.vue"),
@@ -117,3 +122,16 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.params.lang === undefined) {
+    next({
+      name: "home",
+      params: { lang: "en-US" }
+    });
+  } else {
+    next();
+  }
+});
+
+export default router;

@@ -1,8 +1,10 @@
 import Vue from "vue";
 import App from "./App.vue";
+import i18n from "./i18n";
 import router from "./router";
 import store from "./store";
-import "./plugins/element.js";
+import Element from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 import "@/db";
 
 Vue.config.productionTip = false;
@@ -30,7 +32,13 @@ if (typeof String.prototype.getParam === "undefined") {
     return items;
   };
 }
+
+Vue.use(Element, {
+  i18n: (key, value) => i18n.t(key, value)
+});
+
 new Vue({
+  i18n,
   router,
   store,
   render: h => h(App)
