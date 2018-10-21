@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["OptionTrain"],{4533:function(n,e,t){"use strict";t.r(e);var i=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("el-main",[t("h1",[n._v("Train")])])},l=[],a=t("2877"),o={},r=Object(a["a"])(o,i,l,!1,null,null,null);r.options.__file="Index.vue";e["default"]=r.exports}}]);
+//# sourceMappingURL=OptionTrain.b7bd431f.js.map
