@@ -25,8 +25,19 @@ export default {
     intents: "Intents",
     train: "Train"
   },
+  user: {
+    username: "Username",
+    password: "Password",
+    confirm: "Confirm Password",
+    display: "Display Name",
+    requirePassword: "Please enter password",
+    requireConfirm: "Please enter password again",
+    confirmFail: "Confirm password does not match the password"
+  },
   agent: {
     name: "Agent Name",
+    description: "Description",
+    webhook: "Webhook",
     index: {
       create: "Create Agent"
     },
@@ -34,15 +45,18 @@ export default {
       dangerZone: {
         name: "DANGER ZONE",
         title: "Delete Agent",
-        info:
-          "Are you sure you want to delete agent {0}? This will destroy the agent with all corresponding data and cannot be undone!",
-        confirm: "DELETE THIS AGENT"
+        info: `Are you sure you want to delete agent "{0}"? This will destroy the agent with all corresponding data and cannot be undone!`,
+        confirm: "DELETE THIS AGENT",
+        placeholder: "Type DELETE here and click DELETE button",
+        errorMessage:
+          "You can type DELETE above and click DELETE button to delete, or click CANCEL button to cancel"
       }
     }
   },
   entity: {
     name: "Entity Type",
     value: "Entity",
+    description: "Description",
     upload: {
       name: "Upload Entities",
       start: "Drag and drop txt files there, or ",

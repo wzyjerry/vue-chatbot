@@ -2,7 +2,7 @@
   <el-main>
     <el-col :offset="4" :span="12">
       <el-form :model="entity" ref="entity" label-width="200px" :rules="rules">
-        <el-form-item label="ID">
+        <el-form-item label="ID" prop="id">
           <span>{{ entity.id }}</span>
         </el-form-item>
         <el-form-item :label="$t('entity.name')" prop="name">
@@ -38,7 +38,7 @@
             :current-page.sync="id"
             :page-size="perPage"
             layout="total, prev, pager, next, jumper"
-            :total="entity.contents.length">
+            :total="entity.entries.length">
           </el-pagination>
         </el-form-item>
         <el-form-item :label="$t('entity.addContent')">
@@ -68,7 +68,7 @@ export default {
       showContents: [],
       fileList: [],
       entity: {
-        contents: []
+        entries: []
       },
       rules: {
         name: [
@@ -111,8 +111,8 @@ export default {
     },
     loadShowContents() {
       const adjustId = () => {
-        let maxId = this.entity.contents.length / this.perPage;
-        if (this.entity.contents.length % this.perPage !== 0) {
+        let maxId = this.entity.entries.length / this.perPage;
+        if (this.entity.entries.length % this.perPage !== 0) {
           maxId += 1;
         }
         if (this.id > maxId) {
@@ -124,10 +124,10 @@ export default {
       const start = page * this.perPage;
       const end = Math.min(
         (page + 1) * this.perPage,
-        this.entity.contents.length
+        this.entity.entries.length
       );
       this.showContents = [];
-      this.entity.contents.slice(start, end).forEach((value, index) => {
+      this.entity.entries.slice(start, end).forEach((value, index) => {
         this.showContents.push({
           index: page * this.perPage + index + 1,
           value
@@ -136,14 +136,14 @@ export default {
     },
     append() {
       if (this.value !== "") {
-        this.entity.contents.push(this.value);
+        this.entity.entries.push(this.value);
         this.value = "";
         this.loadShowContents();
       }
     },
     remove(row) {
-      const index = this.entity.contents.indexOf(row.value);
-      this.entity.contents.splice(index, 1);
+      const index = this.entity.entries.indexOf(row.value);
+      this.entity.entries.splice(index, 1);
       this.loadShowContents();
     },
     upload(file) {
@@ -165,7 +165,7 @@ export default {
             data.forEach(value => {
               value = value.trim();
               if (value !== "") {
-                this.entity.contents.push(value);
+                this.entity.entries.push(value);
               }
             });
             this.$message({
