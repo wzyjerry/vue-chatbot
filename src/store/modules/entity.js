@@ -13,9 +13,6 @@ const actions = {
   async remove(_, { agentId, id }) {
     await entity.remove(agentId, id);
   },
-  async page(_, { agentId, id }) {
-    return await entity.page(agentId, id);
-  },
   async list(_, { agentId }) {
     return await entity.list(agentId);
   }

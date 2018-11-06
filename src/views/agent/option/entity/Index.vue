@@ -1,29 +1,19 @@
 <template>
   <el-main>
     <template v-if="entityList">
-      <el-table :data="entityList.list">
-        <el-table-column prop="index" label="#" width="80px"/>
+      <el-table :data="entityList" :height="500">
         <el-table-column prop="name" :label="$t('entity.name')"/>
+        <el-table-column prop="description" :label="$t('entity.description')"/>
         <el-table-column width="160px">
           <template slot-scope="scope">
-            <el-button icon="el-icon-setting" circle @click="editEntity(scope.row)"></el-button>
+            <el-button icon="el-icon-setting" type="primary" circle @click="editEntity(scope.row)"></el-button>
             <el-button icon="el-icon-close" type="danger" circle @click="removeConfirm(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-row type="flex" justify="end" class="create">
-        <el-button @click="$router.push({ name: 'optionEntityCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">{{ $t("entity.index.create") }}</el-button>
+        <el-button type="success" @click="$router.push({ name: 'optionEntityCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">{{ $t("entity.index.create") }}</el-button>
       </el-row>
-      <div class="page">
-        <el-pagination
-          @current-change="loadPage"
-          :current-page.sync="id"
-          :page-size="5"
-          layout="total, prev, pager, next, jumper"
-          :page-count="entityList.totalPage"
-          :total="entityList.totalItems">
-        </el-pagination>
-      </div>
     </template>
   </el-main>
 </template>
@@ -36,19 +26,11 @@ export default {
   name: "Index",
   data: function() {
     return {
-      id: 1,
       entityList: undefined
     };
   },
   methods: {
-    ...mapActions(["page", "remove"]),
-    loadPage(id) {
-      this.page({ agentId: this.$route.params.agentId, id }).then(
-        entityList => {
-          this.entityList = entityList;
-        }
-      );
-    },
+    ...mapActions(["list", "remove"]),
     editEntity(row) {
       this.$router.push({
         name: "optionEntityEdit",
@@ -85,7 +67,9 @@ export default {
     }
   },
   mounted: function() {
-    this.loadPage(1);
+    this.list({ agentId: this.$route.params.agentId }).then(entityList => {
+      this.entityList = entityList;
+    });
   }
 };
 </script>

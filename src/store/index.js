@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import agent from "./modules/agent";
 import entity from "./modules/entity";
 import intent from "./modules/intent";
+import user from "./modules/user";
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
   modules: {
     agent,
     entity,
-    intent
+    intent,
+    user
   },
   strict: debug
 });

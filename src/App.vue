@@ -3,7 +3,7 @@
     <el-header>
       <el-row type="flex" :gutter="20" >
         <el-col :offset="4" :span="6">
-          <el-button @click="goHome" style="margin:10px 50px;height:40px;line-height:35px;padding: 0;width:300px;text-align:center;font-size:30px;font-weight:100;">{{ $t("header.testMessage") }}</el-button>
+          <logo />
         </el-col>
         <el-col :span="2">
           <el-menu router :default-active="$route.path" mode="horizontal">
@@ -18,8 +18,8 @@
                 <el-option value="en-US" label="English"></el-option>
               </el-select>
             </el-menu-item>
-            <el-menu-item index="/login">{{ $t("nav.login") }}</el-menu-item>
-            <el-menu-item index="/regist">{{ $t("nav.regist") }}</el-menu-item>
+            <el-menu-item :index="`/${this.$route.params.lang}/login`">{{ $t("nav.login") }}</el-menu-item>
+            <el-menu-item :index="`/${this.$route.params.lang}/regist`">{{ $t("nav.regist") }}</el-menu-item>
           </el-menu>
         </el-col>
       </el-row>
@@ -29,8 +29,13 @@
 </template>
 
 <script>
+import Logo from "@/components/Logo";
+
 export default {
   name: "App",
+  components: {
+    Logo
+  },
   watch: {
     $route() {
       this.lang = this.$route.params.lang;
@@ -48,9 +53,6 @@ export default {
         name: this.$route.name,
         params: { lang: this.lang }
       });
-    },
-    goHome() {
-      this.$router.push({ name: "home" });
     }
   }
 };

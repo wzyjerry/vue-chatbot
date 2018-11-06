@@ -1,10 +1,10 @@
 const Mock = require("mockjs");
 
-Mock.mock(RegExp("http://api/agent$"), "post", options => {
+Mock.mock(RegExp("http://api/user$"), "post", options => {
   console.debug(JSON.parse(options.body));
 });
 
-Mock.mock(RegExp("http://api/agent/[^/]*$"), "put", options => {
+Mock.mock(RegExp("http://api/user/[^/]*$"), "put", options => {
   console.debug(JSON.parse(options.body));
 });
 
@@ -18,11 +18,7 @@ Mock.mock(RegExp("http://api/agent/[^/]*$"), "get", options => {
   return Mock.mock(agent);
 });
 
-Mock.mock(RegExp("http://api/agent/[^/]*$"), "delete", options => {
-  console.debug(`Delete agent: ${options.url.split("/").pop()}`);
-});
-
-Mock.mock(RegExp("http://api/agent$"), "get", {
+Mock.mock(RegExp("http://api/user/login"), "get", {
   "list|5-14": [
     {
       id: "@guid",

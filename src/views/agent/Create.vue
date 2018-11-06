@@ -1,15 +1,28 @@
 <template>
   <el-main>
-    <el-col :offset="4" :span="12">
-      <el-form :model="agent" ref="agent" label-width="200px" :rules="rules">
-        <el-form-item :label="$t('agent.name')" prop="name">
-          <el-input v-model="agent.name" :placeholder="$t('agent.name')"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm">{{ $t("common.create") }}</el-button>
-        </el-form-item>
-      </el-form>
-    </el-col>
+    <el-row type="flex" justify="center">
+      <el-col :span="12">
+        <el-form status-icon :model="agent" ref="agent" label-width="200px" :rules="rules" class="form">
+          <el-form-item :label="$t('agent.name')" prop="name">
+            <el-input v-model="agent.name" :placeholder="$t('agent.name')"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('agent.description')">
+            <el-input
+              type="textarea"
+              autosize
+              :placeholder="$t('agent.description')"
+              v-model="agent.description">
+            </el-input>
+          </el-form-item>
+          <el-form-item :label="$t('agent.webhook')" prop="webhook">
+            <el-input v-model="agent.webhook" :placeholder="$t('agent.webhook')"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm">{{ $t("common.create") }}</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
   </el-main>
 </template>
 
@@ -60,4 +73,6 @@ export default {
 <style lang="stylus">
 .el-select
   width 100%
+.form
+  margin-top 30px
 </style>

@@ -1,14 +1,25 @@
 <template>
   <el-main>
-    <el-row :gutter="20">
-      <el-col :span="20">
-        <el-form :model="agent" ref="agent" label-width="200px" :rules="rules">
+    <el-row type="flex" justify="center">
+      <el-col :span="16">
+        <el-form status-icon :model="agent" ref="agent" label-width="200px" :rules="rules" class="form">
           <el-form-item label="ID">
             <span>{{ agent.id }}</span>
             <el-button type="primary" @click="submitForm" style="margin-left: 20px;">{{ $t("common.save") }}</el-button>
           </el-form-item>
           <el-form-item :label="$t('agent.name')" prop="name">
-              <el-input v-model="agent.name" :placeholder="$t('agent.name')"></el-input>
+            <el-input v-model="agent.name" :placeholder="$t('agent.name')"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('agent.description')">
+            <el-input
+              type="textarea"
+              autosize
+              :placeholder="$t('agent.description')"
+              v-model="agent.description">
+            </el-input>
+          </el-form-item>
+          <el-form-item :label="$t('agent.webhook')" prop="webhook">
+            <el-input v-model="agent.webhook" :placeholder="$t('agent.webhook')"></el-input>
           </el-form-item>
           <el-form-item>
             <el-card class="danger-zone">
@@ -86,17 +97,14 @@ export default {
     },
     removeConfirm() {
       this.$prompt(
-        `Are you sure you would like to delete agent "${
-          this.agent.name
-        }"? This will destroy agent and cannot be undone!`,
-        "Delete Agent",
+        this.$t("agent.edit.dangerZone.info", [this.agent.name]),
+        this.$t("agent.edit.dangerZone.title"),
         {
-          confirmButtonText: "DELETE",
-          cancelButtonText: "CANCEL",
-          inputPlaceholder: "Type DELETE here and click DELETE button",
+          confirmButtonText: this.$t("common.delete"),
+          cancelButtonText: this.$t("common.cancel"),
+          inputPlaceholder: this.$t("agent.edit.dangerZone.placeholder"),
           inputPattern: /DELETE/,
-          inputErrorMessage:
-            "You can type DELETE above and click DELETE button to delete, or click CANCEL button to cancel"
+          inputErrorMessage: this.$t("agent.edit.dangerZone.errorMessage")
         }
       )
         .then(() => {
@@ -106,7 +114,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "Canceled"
+            message: this.$t("common.canceled")
           });
         });
     }
@@ -115,6 +123,8 @@ export default {
 </script>
 
 <style lang="stylus">
+.form
+  margin-top 20px
 .el-select
   width 100%
 .danger-zone

@@ -240,6 +240,11 @@ const drag = d3
       source.parent = target;
       // 按与父节点的夹角排序树
       root.sort(function(a, b) {
+        if (b.data.type === "holder") {
+          return 1;
+        } else if (a.data.type === "holder") {
+          return -1;
+        }
         const ax = a.x0 - a.parent.x0;
         const ay = Math.abs(a.y0 - a.parent.y0);
         const bx = b.x0 - b.parent.x0;
