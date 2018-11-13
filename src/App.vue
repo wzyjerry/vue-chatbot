@@ -1,13 +1,13 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header v-if="$route.name !== 'test'">
       <el-row type="flex" :gutter="20" >
         <el-col :offset="4" :span="6">
           <logo />
         </el-col>
         <el-col :span="2">
           <el-menu router :default-active="$route.path" mode="horizontal">
-            <el-menu-item :index="`/${this.$route.params.lang}/agent/index`">{{ $t("nav.agent") }}</el-menu-item>
+            <el-menu-item :index="`/${this.$route.params.lang}/agent`">{{ $t("nav.agent") }}</el-menu-item>
           </el-menu>
         </el-col>
         <el-col :offset="5">

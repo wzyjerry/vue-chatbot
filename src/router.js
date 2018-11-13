@@ -6,6 +6,11 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     {
+      path: "/:lang/test",
+      name: "test",
+      component: () => import(/* webpackChunkName: "Test" */ "./views/Test.vue")
+    },
+    {
       path: "/:lang",
       name: "home",
       component: () => import(/* webpackChunkName: "Home" */ "./views/Home.vue")
@@ -24,12 +29,11 @@ const router = new Router({
     },
     {
       path: "/:lang/agent",
-      name: "agent",
       component: () =>
         import(/* webpackChunkName: "Agent" */ "./views/agent/Agent.vue"),
       children: [
         {
-          path: "index",
+          path: "",
           name: "agentIndex",
           component: () =>
             import(/* webpackChunkName: "Agent" */ "./views/agent/Index.vue")
@@ -41,7 +45,7 @@ const router = new Router({
             import(/* webpackChunkName: "Agent" */ "./views/agent/Create.vue")
         },
         {
-          path: "view/:agentId",
+          path: ":agentId",
           name: "agentEdit",
           components: {
             aside: () =>
@@ -51,7 +55,7 @@ const router = new Router({
           }
         },
         {
-          path: "view/:agentId/entity/index",
+          path: ":agentId/entity",
           name: "optionEntityIndex",
           components: {
             aside: () =>
@@ -61,7 +65,7 @@ const router = new Router({
           }
         },
         {
-          path: "view/:agentId/entity/create",
+          path: ":agentId/entity/create",
           name: "optionEntityCreate",
           components: {
             aside: () =>
@@ -71,7 +75,7 @@ const router = new Router({
           }
         },
         {
-          path: "view/:agentId/entity/edit/:entityId",
+          path: ":agentId/entity/:entityId",
           name: "optionEntityEdit",
           components: {
             aside: () =>
@@ -81,7 +85,7 @@ const router = new Router({
           }
         },
         {
-          path: "view/:agentId/intent/index",
+          path: ":agentId/intent",
           name: "optionIntentIndex",
           components: {
             aside: () =>
@@ -91,7 +95,7 @@ const router = new Router({
           }
         },
         {
-          path: "view/:agentId/intent/create",
+          path: ":agentId/intent/create",
           name: "optionIntentCreate",
           components: {
             aside: () =>
@@ -101,7 +105,7 @@ const router = new Router({
           }
         },
         {
-          path: "view/:agentId/intent/edit/:intentId",
+          path: ":agentId/intent/:intentId",
           name: "optionIntentEdit",
           components: {
             aside: () =>
@@ -111,7 +115,7 @@ const router = new Router({
           }
         },
         {
-          path: "view/:agentId/intent/menu/:intentId",
+          path: ":agentId/intent/menu/:intentId",
           name: "optionIntentMenu",
           components: {
             aside: () =>
@@ -121,7 +125,7 @@ const router = new Router({
           }
         },
         {
-          path: "view/:agentId/train/index",
+          path: ":agentId/train",
           name: "optionTrainIndex",
           components: {
             aside: () =>

@@ -1,7 +1,7 @@
 <template>
   <el-main>
     <el-row type="flex" justify="center">
-      <el-col :span="16">
+      <el-col :lg="20">
         <el-form status-icon :model="agent" ref="agent" label-width="200px" :rules="rules" class="form">
           <el-form-item label="ID">
             <span>{{ agent.id }}</span>

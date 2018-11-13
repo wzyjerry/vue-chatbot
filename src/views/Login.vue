@@ -61,7 +61,9 @@ export default {
     submitForm() {
       this.$refs.user.validate(valid => {
         if (valid) {
-          this.login(this.user);
+          this.login(this.user).then(data => {
+            localStorage.setItem("api_key", data.api_key);
+          });
           this.$router.push({ name: "home" });
         } else {
           return false;

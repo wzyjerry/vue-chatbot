@@ -1,9 +1,14 @@
 import ajax from "./config.js";
 
-async function regist(data) {
-  await ajax.post("/user", data);
+function regist(data) {
+  ajax.post("/user", data);
+}
+
+function login(data) {
+  return ajax.post("/user/login", data);
 }
 
 export default {
-  regist
+  regist,
+  login
 };

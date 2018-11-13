@@ -30,7 +30,7 @@ const { mapActions } = createNamespacedHelpers("user");
 
 export default {
   name: "Regist",
-  data: function() {
+  data() {
     return {
       user: {},
       rules: {
@@ -89,7 +89,6 @@ export default {
       }
     },
     validatePass2(rule, value, callback) {
-      console.debug(value);
       if (value === undefined || value === "") {
         callback(new Error(this.$t("user.requireConfirm")));
       } else if (value !== this.user.password) {
