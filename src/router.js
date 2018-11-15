@@ -143,7 +143,7 @@ router.beforeEach((to, from, next) => {
   if (to.params.lang === undefined) {
     next({
       name: "home",
-      params: { lang: "en-US" }
+      params: { lang: localStorage.getItem("lang") || "en-US" }
     });
   } else {
     next();

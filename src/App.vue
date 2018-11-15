@@ -39,6 +39,7 @@ export default {
   watch: {
     $route() {
       this.lang = this.$route.params.lang;
+      localStorage.setItem("lang", this.lang);
       this.$i18n.locale = this.lang;
     }
   },
@@ -51,7 +52,8 @@ export default {
     langChange() {
       this.$router.push({
         name: this.$route.name,
-        params: { lang: this.lang }
+        params: { lang: this.lang },
+        query: this.$route.query
       });
     }
   }
