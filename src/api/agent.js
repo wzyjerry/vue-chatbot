@@ -1,7 +1,13 @@
 import ajax from "./config.js";
 
 async function create(data) {
-  ajax.post("/agent", data);
+  ajax.post({
+    url: "/agent",
+    data: data,
+    params: {
+      api_key: localStorage.getItem("api_key")
+    }
+  });
 }
 
 async function edit(id, data) {

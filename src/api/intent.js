@@ -1,35 +1,31 @@
 import ajax from "./config.js";
 
 async function create(agentId, data) {
-  await ajax.post(`/agent/view/${agentId}/intent/create`, data);
+  await ajax.post(`/agent/${agentId}/intent`, data);
 }
 
 async function edit(agentId, id, data) {
-  await ajax.put(`/agent/view/${agentId}/intent/edit/${id}`, data);
+  await ajax.put(`/agent/${agentId}/intent/${id}`, data);
 }
 
 async function setting(agentId, id, data) {
-  await ajax.put(`/agent/view/${agentId}/intent/setting/${id}`, data);
+  await ajax.put(`/agent/${agentId}/intent/setting/${id}`, data);
 }
 
 async function view(agentId, id) {
-  return await ajax
-    .get(`/agent/view/${agentId}/intent/view/${id}`)
-    .then(response => {
-      return response.data;
-    });
+  return await ajax.get(`/agent/${agentId}/intent/${id}`).then(response => {
+    return response.data;
+  });
 }
 
 async function remove(agentId, id) {
-  await ajax.delete(`/agent/view/${agentId}/intent/remove/${id}`);
+  await ajax.delete(`/agent/${agentId}/intent/${id}`);
 }
 
 async function page(agentId, id) {
-  return await ajax
-    .get(`/agent/view/${agentId}/intent/page?id=${id}`)
-    .then(response => {
-      return response.data;
-    });
+  return await ajax.get(`/agent/${agentId}/intent?id=${id}`).then(response => {
+    return response.data;
+  });
 }
 
 export default {

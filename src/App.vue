@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header v-if="$route.name !== 'test'">
+    <el-header v-if="$route.name !== 'interactive'" >
       <el-row type="flex" :gutter="20" >
         <el-col :offset="4" :span="6">
           <logo />
