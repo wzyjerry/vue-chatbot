@@ -32,7 +32,9 @@ export default {
     display: "Display Name",
     requirePassword: "Please enter Password",
     requireConfirm: "Please enter Password again",
-    confirmFail: "Confirm password does not match the password"
+    confirmFail: "Confirm password does not match the password",
+    loginError: "Login failed",
+    registError: "Regist failed"
   },
   agent: {
     name: "Agent Name",

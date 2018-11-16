@@ -27,15 +27,15 @@
                 <i class="el-icon-warning"></i>
                 <span style="margin-left: 20px;">{{ $t('agent.edit.dangerZone.name') }}</span>
               </div>
-              <div>
-                <el-col :span="18">
+              <el-row :gutter="10">
+                <el-col :span="16">
                   <p class="title">{{ $t('agent.edit.dangerZone.title') }}</p>
                   <p class="content">{{ $t('agent.edit.dangerZone.info', [agent.name]) }}</p>
                 </el-col>
-                <el-col :span="6" style="margin-top: 50px; margin-bottom: 10px">
+                <el-col :span="6" style="margin-top: 50px">
                   <el-button type="danger" plain @click="removeConfirm">{{ $t('agent.edit.dangerZone.confirm') }}</el-button>
                 </el-col>
-              </div>
+              </el-row>
             </el-card>
           </el-form-item>      
         </el-form>
@@ -85,10 +85,11 @@ export default {
           this.edit({
             id: this.$route.params.agentId,
             data: this.agent
-          });
-          this.$message({
-            type: "success",
-            message: "Saved"
+          }).then(() => {
+            this.$message({
+              type: "success",
+              message: "Saved"
+            });
           });
         } else {
           return false;

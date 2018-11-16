@@ -54,9 +54,13 @@ export default {
           this.remove({
             agentId: this.$route.params.agentId,
             id: row.id
+          }).then(() => {
+            this.list({ agentId: this.$route.params.agentId }).then(
+              entityList => {
+                this.entityList = entityList;
+              }
+            );
           });
-          this.id = 1;
-          this.loadPage(this.id);
         })
         .catch(() => {
           this.$message({

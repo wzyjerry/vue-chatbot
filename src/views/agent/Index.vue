@@ -3,7 +3,7 @@
     <el-row type="flex" justify="center">
       <el-col :span="16">
         <template v-if="agentList">
-          <el-table :data="agentList.list" :height="500">
+          <el-table :data="agentList" :height="500">
             <el-table-column prop="name" width="200px" :label="$t('agent.name')"/>
             <el-table-column prop="description" :label="$t('agent.description')"/>
             <el-table-column width="80px">
@@ -43,6 +43,7 @@ export default {
   },
   mounted: function() {
     this.list().then(agentList => {
+      console.debug(agentList);
       this.agentList = agentList;
     });
   }

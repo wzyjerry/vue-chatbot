@@ -61,10 +61,14 @@ export default {
     submitForm() {
       this.$refs.user.validate(valid => {
         if (valid) {
-          this.login(this.user).then(data => {
-            localStorage.setItem("api_key", data.api_key);
-          });
-          this.$router.push({ name: "home" });
+          this.login(this.user)
+            .then(data => {
+              localStorage.setItem("api_key", data.api_key);
+              this.$router.push({ name: "home" });
+            })
+            .catch(() => {
+              this.$message.error(this.$t("user.loginError"));
+            });
         } else {
           return false;
         }

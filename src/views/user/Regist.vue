@@ -71,8 +71,13 @@ export default {
     submitForm() {
       this.$refs.user.validate(valid => {
         if (valid) {
-          this.regist(this.user);
-          this.$router.push({ name: "login" });
+          this.regist(this.user)
+            .then(() => {
+              this.$router.push({ name: "login" });
+            })
+            .catch(() => {
+              this.$message.error(this.$t("user.registError"));
+            });
         } else {
           return false;
         }

@@ -5,7 +5,14 @@ function regist(data) {
 }
 
 function login(data) {
-  return ajax.post("/user/login", data);
+  return ajax
+    .post("/user/login", data)
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      throw error;
+    });
 }
 
 export default {

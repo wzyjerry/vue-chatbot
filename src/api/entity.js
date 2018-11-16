@@ -1,27 +1,23 @@
 import ajax from "./config.js";
 
-async function create(agentId, data) {
-  await ajax.post(`/agent/${agentId}/entity`, data);
+function create(agentId, data) {
+  return ajax.post(`/agent/${agentId}/entity`, data);
 }
 
-async function edit(agentId, id, data) {
-  await ajax.put(`/agent/${agentId}/entity/${id}`, data);
+function edit(agentId, id, data) {
+  return ajax.put(`/agent/${agentId}/entity/${id}`, data);
 }
 
-async function view(agentId, id) {
-  return await ajax.get(`/agent/${agentId}/entity/${id}`).then(response => {
-    return response.data;
-  });
+function view(agentId, id) {
+  return ajax.get(`/agent/${agentId}/entity/${id}`);
 }
 
-async function remove(agentId, id) {
-  await ajax.delete(`/agent/${agentId}/entity/${id}`);
+function remove(agentId, id) {
+  return ajax.delete(`/agent/${agentId}/entity/${id}`);
 }
 
-async function list(agentId) {
-  return await ajax.get(`/agent/${agentId}/entity`).then(response => {
-    return response.data.list;
-  });
+function list(agentId) {
+  return ajax.get(`/agent/${agentId}/entity`);
 }
 
 export default {
