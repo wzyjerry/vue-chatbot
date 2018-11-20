@@ -1,7 +1,7 @@
 <template>
   <el-main>
     <template v-if="intentList">
-      <el-table :data="intentList.list">
+      <el-table :data="intentList">
         <el-table-column prop="index" label="#" width="80px"/>
         <el-table-column prop="name" label="Name"/>
         <el-table-column prop="weight" label="Weight"/>
@@ -16,16 +16,6 @@
       <el-row type="flex" justify="end" class="create">
         <el-button @click="$router.push({ name: 'optionIntentCreate', params: { agentId: $route.params.agentId } })" icon="el-icon-circle-plus-outline">Create Intent</el-button>
       </el-row>
-      <div class="page">
-        <el-pagination
-          @current-change="loadPage"
-          :current-page.sync="id"
-          :page-size="5"
-          layout="total, prev, pager, next, jumper"
-          :page-count="intentList.totalPage"
-          :total="intentList.totalItems">
-        </el-pagination>
-      </div>
     </template>
   </el-main>
 </template>
@@ -38,19 +28,11 @@ export default {
   name: "Index",
   data: function() {
     return {
-      id: 1,
       intentList: undefined
     };
   },
   methods: {
-    ...mapActions(["page", "remove"]),
-    loadPage(id) {
-      this.page({ agentId: this.$route.params.agentId, id }).then(
-        intentList => {
-          this.intentList = intentList;
-        }
-      );
-    },
+    ...mapActions(["list", "remove"]),
     editIntent(row) {
       this.$router.push({
         name: "optionIntentEdit",
@@ -96,7 +78,9 @@ export default {
     }
   },
   mounted: function() {
-    this.loadPage(1);
+    this.list({ agentId: this.$route.params.agentId }).then(intentList => {
+      this.intentList = intentList;
+    });
   }
 };
 </script>
@@ -104,7 +88,4 @@ export default {
 <style lang="stylus">
 .create
   margin-top 20px
-.page
-  margin-top 20px
-  text-align center
 </style>

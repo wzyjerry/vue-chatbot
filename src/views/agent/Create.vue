@@ -59,11 +59,13 @@ export default {
     submitForm() {
       this.$refs.agent.validate(valid => {
         if (valid) {
-          this.create(this.agent).then(() => {
-            this.$router.push({ name: "agentIndex" })
-          }).catch(error => {
-            console.debug(error);
-          });
+          this.create(this.agent)
+            .then(() => {
+              this.$router.push({ name: "agentIndex" });
+            })
+            .catch(error => {
+              console.debug(error);
+            });
         } else {
           return false;
         }
