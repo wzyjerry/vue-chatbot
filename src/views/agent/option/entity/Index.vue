@@ -81,7 +81,4 @@ export default {
 <style lang="stylus">
 .create
   margin-top 20px
-.page
-  margin-top 20px
-  text-align center
 </style>

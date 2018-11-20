@@ -4,8 +4,8 @@ const actions = {
   create: async (_, { agentId, data }) => {
     await intent.create(agentId, data);
   },
-  edit: async (_, { agentId, id, data }) => {
-    await intent.edit(agentId, id, data);
+  edit: (_, { agentId, id, data }) => {
+    return intent.edit(agentId, id, data);
   },
   setting: async (_, { agentId, id, data }) => {
     await intent.setting(agentId, id, data);
@@ -16,8 +16,10 @@ const actions = {
   remove: async (_, { agentId, id }) => {
     await intent.remove(agentId, id);
   },
-  page: async (_, { agentId, id }) => {
-    return await intent.page(agentId, id);
+  list(_, { agentId }) {
+    return intent.list(agentId).then(response => {
+      return response.data;
+    });
   }
 };
 

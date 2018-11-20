@@ -22,10 +22,8 @@ async function remove(agentId, id) {
   await ajax.delete(`/agent/${agentId}/intent/${id}`);
 }
 
-async function page(agentId, id) {
-  return await ajax.get(`/agent/${agentId}/intent?id=${id}`).then(response => {
-    return response.data;
-  });
+function list(agentId) {
+  return ajax.get(`/agent/${agentId}/intent`);
 }
 
 export default {
@@ -34,5 +32,5 @@ export default {
   setting,
   view,
   remove,
-  page
+  list
 };

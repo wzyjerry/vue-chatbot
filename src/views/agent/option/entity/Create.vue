@@ -86,12 +86,13 @@ export default {
           this.create({
             agentId: this.$route.params.agentId,
             data: this.entity
-          });
-          this.$router.push({
-            name: "optionEntityIndex",
-            params: {
-              agentId: this.$route.params.agentId
-            }
+          }).then(() => {
+            this.$router.push({
+              name: "optionEntityIndex",
+              params: {
+                agentId: this.$route.params.agentId
+              }
+            });
           });
         } else {
           return false;

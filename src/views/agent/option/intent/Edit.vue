@@ -28,7 +28,7 @@ export default {
     save(data) {
       this.edit({
         agentId: this.$route.params.agentId,
-        intentId: this.$route.params.intentId,
+        id: this.$route.params.intentId,
         data: data
       });
     }
