@@ -1,13 +1,13 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header v-if="$route.name !== 'interactive'" >
       <el-row type="flex" :gutter="20" >
         <el-col :offset="4" :span="6">
           <logo />
         </el-col>
         <el-col :span="2">
           <el-menu router :default-active="$route.path" mode="horizontal">
-            <el-menu-item :index="`/${this.$route.params.lang}/agent/index`">{{ $t("nav.agent") }}</el-menu-item>
+            <el-menu-item :index="`/${this.$route.params.lang}/agent`">{{ $t("nav.agent") }}</el-menu-item>
           </el-menu>
         </el-col>
         <el-col :offset="5">
@@ -39,6 +39,7 @@ export default {
   watch: {
     $route() {
       this.lang = this.$route.params.lang;
+      localStorage.setItem("lang", this.lang);
       this.$i18n.locale = this.lang;
     }
   },
@@ -51,7 +52,8 @@ export default {
     langChange() {
       this.$router.push({
         name: this.$route.name,
-        params: { lang: this.lang }
+        params: { lang: this.lang },
+        query: this.$route.query
       });
     }
   }

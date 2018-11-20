@@ -1,6 +1,6 @@
 const Mock = require("mockjs");
 
-Mock.mock(RegExp("http://api/agent/[^/]*/entity$"), "post", options => {
+Mock.mock(RegExp("http://api/agent/[^/]*/entity[^/]*$"), "post", options => {
   console.debug(JSON.parse(options.body));
 });
 
@@ -22,7 +22,7 @@ Mock.mock(RegExp("http://api/agent/[^/]*/entity/[^/]*$"), "delete", options => {
   console.debug(`Delete entity: ${options.url.split("/").pop()}`);
 });
 
-Mock.mock(RegExp("http://api/agent/[^/]*/entity$"), "get", () => {
+Mock.mock(RegExp("http://api/agent/[^/]*/entity[^/]*$"), "get", () => {
   const entityList = Mock.mock({
     "list|12-16": [
       {

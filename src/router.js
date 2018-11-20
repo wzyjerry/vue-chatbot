@@ -6,6 +6,12 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     {
+      path: "/:lang/interactive/:agentId",
+      name: "interactive",
+      component: () =>
+        import(/* webpackChunkName: "Interactive" */ "./views/Interactive.vue")
+    },
+    {
       path: "/:lang",
       name: "home",
       component: () => import(/* webpackChunkName: "Home" */ "./views/Home.vue")
@@ -14,22 +20,21 @@ const router = new Router({
       path: "/:lang/regist",
       name: "regist",
       component: () =>
-        import(/* webpackChunkName: "User" */ "./views/Regist.vue")
+        import(/* webpackChunkName: "User" */ "./views/user/Regist.vue")
     },
     {
       path: "/:lang/login",
       name: "login",
       component: () =>
-        import(/* webpackChunkName: "User" */ "./views/Login.vue")
+        import(/* webpackChunkName: "User" */ "./views/user/Login.vue")
     },
     {
       path: "/:lang/agent",
-      name: "agent",
       component: () =>
         import(/* webpackChunkName: "Agent" */ "./views/agent/Agent.vue"),
       children: [
         {
-          path: "index",
+          path: "",
           name: "agentIndex",
           component: () =>
             import(/* webpackChunkName: "Agent" */ "./views/agent/Index.vue")
@@ -41,93 +46,111 @@ const router = new Router({
             import(/* webpackChunkName: "Agent" */ "./views/agent/Create.vue")
         },
         {
-          path: "view/:agentId",
+          path: ":agentId",
           name: "agentEdit",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Edit.vue")
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/Edit.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         },
         {
-          path: "view/:agentId/entity/index",
+          path: ":agentId/entity",
           name: "optionEntityIndex",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Index.vue")
+              import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Index.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         },
         {
-          path: "view/:agentId/entity/create",
+          path: ":agentId/entity/create",
           name: "optionEntityCreate",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Create.vue")
+              import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Create.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         },
         {
-          path: "view/:agentId/entity/edit/:entityId",
+          path: ":agentId/entity/:entityId",
           name: "optionEntityEdit",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Edit.vue")
+              import(/* webpackChunkName: "OptionEntity" */ "./views/agent/option/entity/Edit.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         },
         {
-          path: "view/:agentId/intent/index",
+          path: ":agentId/intent",
           name: "optionIntentIndex",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Index.vue")
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Index.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         },
         {
-          path: "view/:agentId/intent/create",
+          path: ":agentId/intent/create",
           name: "optionIntentCreate",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Create.vue")
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Create.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         },
         {
-          path: "view/:agentId/intent/edit/:intentId",
+          path: ":agentId/intent/:intentId",
           name: "optionIntentEdit",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Edit.vue")
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Edit.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         },
         {
-          path: "view/:agentId/intent/menu/:intentId",
+          path: ":agentId/intent/menu/:intentId",
           name: "optionIntentMenu",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Menu.vue")
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Menu.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         },
         {
-          path: "view/:agentId/train/index",
+          path: ":agentId/train",
           name: "optionTrainIndex",
           components: {
-            aside: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/Aside.vue"),
+            asideLeft: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionTrain" */ "./views/agent/option/train/Index.vue")
+              import(/* webpackChunkName: "OptionTrain" */ "./views/agent/option/train/Index.vue"),
+            asideRight: () =>
+              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
           }
         }
       ]
@@ -139,7 +162,7 @@ router.beforeEach((to, from, next) => {
   if (to.params.lang === undefined) {
     next({
       name: "home",
-      params: { lang: "en-US" }
+      params: { lang: localStorage.getItem("lang") || "en-US" }
     });
   } else {
     next();

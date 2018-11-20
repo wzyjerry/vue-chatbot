@@ -9,14 +9,8 @@
           <el-form-item :label="$t('user.password')" prop="password">
             <el-input type="password" v-model="user.password" :placeholder="$t('user.password')" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item :label="$t('user.confirm')" prop="confirm">
-            <el-input type="password" v-model="user.confirm" :placeholder="$t('user.confirm')" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item :label="$t('user.display')" prop="display">
-            <el-input v-model="user.display" :placeholder="$t('user.display')"></el-input>
-          </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm">{{ $t("nav.regist") }}</el-button>
+            <el-button type="primary" @click="submitForm">{{ $t("nav.login") }}</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -44,14 +38,7 @@ export default {
         password: [
           {
             required: true,
-            validator: this.validatePass,
-            trigger: "blur"
-          }
-        ],
-        confirm: [
-          {
-            required: true,
-            validator: this.validatePass2,
+            message: this.$t("common.required", [this.$t("user.password")]),
             trigger: "blur"
           }
         ]
@@ -63,16 +50,25 @@ export default {
       this.rules.username[0].message = this.$t("common.required", [
         this.$t("user.username")
       ]);
+      this.rules.password[0].message = this.$t("common.required", [
+        this.$t("user.password")
+      ]);
       this.$refs.user.validate();
     }
   },
   methods: {
-    ...mapActions(["regist"]),
+    ...mapActions(["login"]),
     submitForm() {
       this.$refs.user.validate(valid => {
         if (valid) {
-          this.regist(this.user);
-          this.$router.push({ name: "login" });
+          this.login(this.user)
+            .then(data => {
+              localStorage.setItem("api_key", data.api_key);
+              this.$router.push({ name: "home" });
+            })
+            .catch(() => {
+              this.$message.error(this.$t("user.loginError"));
+            });
         } else {
           return false;
         }
@@ -81,21 +77,6 @@ export default {
     validatePass(rule, value, callback) {
       if (value === undefined || value === "") {
         callback(new Error(this.$t("user.requirePassword")));
-      } else {
-        if (this.user.confirm !== undefined || this.user.confirm !== "") {
-          this.$refs.user.validateField("confirm");
-        }
-        callback();
-      }
-    },
-    validatePass2(rule, value, callback) {
-      console.debug(value);
-      if (value === undefined || value === "") {
-        callback(new Error(this.$t("user.requireConfirm")));
-      } else if (value !== this.user.password) {
-        callback(new Error(this.$t("user.confirmFail")));
-      } else {
-        callback();
       }
     }
   }

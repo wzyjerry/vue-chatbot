@@ -1,7 +1,8 @@
 <template>
   <el-container direction="horizontal">
-    <router-view name="aside"/>
+    <router-view name="asideLeft"/>
     <router-view/>
+    <router-view name="asideRight"/>
   </el-container>  
 </template>
 

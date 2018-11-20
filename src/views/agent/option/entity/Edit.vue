@@ -87,6 +87,9 @@ export default {
       id: this.$route.params.entityId
     }).then(entity => {
       this.entity = entity;
+      if (this.entity.entries === undefined) {
+        this.entity.entries = [];
+      }
       this.loadShowContents();
     });
   },
@@ -99,10 +102,11 @@ export default {
             agentId: this.$route.params.agentId,
             id: this.$route.params.entityId,
             data: this.entity
-          });
-          this.$message({
-            type: "success",
-            message: this.$t("common.saved")
+          }).then(() => {
+            this.$message({
+              type: "success",
+              message: this.$t("common.saved")
+            });
           });
         } else {
           return false;

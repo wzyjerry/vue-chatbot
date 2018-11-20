@@ -54,9 +54,9 @@
         <el-select v-model="newNode.entity" filterable placeholder="Select Entity">
           <el-option
             v-for="entity in entityList"
-            :key="entity.value"
-            :label="entity.label"
-            :value="entity.value">
+            :key="entity.id"
+            :label="entity.name"
+            :value="entity.id">
           </el-option>
         </el-select>
       </el-form-item>

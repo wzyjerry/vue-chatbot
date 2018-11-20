@@ -32,7 +32,9 @@ export default {
     display: "显示名",
     requirePassword: "请输入密码",
     requireConfirm: "请再次输入密码",
-    confirmFail: "两次输入密码不一致"
+    confirmFail: "两次输入密码不一致",
+    loginError: "登录失败",
+    registError: "注册失败"
   },
   agent: {
     name: "代理名称",
