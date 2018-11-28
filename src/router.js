@@ -12,11 +12,6 @@ const router = new Router({
         import(/* webpackChunkName: "Interactive" */ "./views/Interactive.vue")
     },
     {
-      path: "/:lang",
-      name: "home",
-      component: () => import(/* webpackChunkName: "Home" */ "./views/Home.vue")
-    },
-    {
       path: "/:lang/regist",
       name: "regist",
       component: () =>
@@ -29,13 +24,25 @@ const router = new Router({
         import(/* webpackChunkName: "User" */ "./views/user/Login.vue")
     },
     {
-      path: "/:lang/agent",
+      path: "/:lang/user",
+      name: "user",
+      component: () =>
+        import(/* webpackChunkName: "User" */ "./views/user/Edit.vue")
+    },
+    {
+      path: "/:lang/logout",
+      name: "logout",
+      component: () =>
+        import(/* webpackChunkName: "User" */ "./views/user/Logout.vue")
+    },
+    {
+      path: "/:lang",
       component: () =>
         import(/* webpackChunkName: "Agent" */ "./views/agent/Agent.vue"),
       children: [
         {
           path: "",
-          name: "agentIndex",
+          name: "home",
           component: () =>
             import(/* webpackChunkName: "Agent" */ "./views/agent/Index.vue")
         },
@@ -124,9 +131,7 @@ const router = new Router({
             asideLeft: () =>
               import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideLeft.vue"),
             default: () =>
-              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Edit.vue"),
-            asideRight: () =>
-              import(/* webpackChunkName: "Option" */ "./views/agent/option/AsideRight.vue")
+              import(/* webpackChunkName: "OptionIntent" */ "./views/agent/option/intent/Edit.vue")
           }
         },
         {
@@ -158,8 +163,17 @@ const router = new Router({
   ]
 });
 
+function isLogin() {
+  return localStorage.getItem("api_key") !== null;
+}
+
 router.beforeEach((to, from, next) => {
-  if (to.params.lang === undefined) {
+  if (!(to.name in { login: 1, regist: 2, interactive: 3 } || isLogin())) {
+    next({
+      name: "login",
+      params: { lang: localStorage.getItem("lang") || "en-US" }
+    });
+  } else if (to.params.lang === undefined) {
     next({
       name: "home",
       params: { lang: localStorage.getItem("lang") || "en-US" }

@@ -98,7 +98,6 @@ export default {
     states.svgGroup = states.baseSvg.append("g");
     states.baseSvg.call(zoomListener).on("dblclick.zoom", null);
     clickCallBack(this.onClick);
-    this.load(states.root);
   },
   methods: {
     toggleDebug: function(debug) {

@@ -4,6 +4,7 @@ import agent from "./modules/agent";
 import entity from "./modules/entity";
 import intent from "./modules/intent";
 import user from "./modules/user";
+import interactive from "./modules/interactive";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     agent,
     entity,
     intent,
-    user
+    user,
+    interactive
   },
   strict: debug
 });

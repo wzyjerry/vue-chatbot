@@ -5,11 +5,6 @@
         <el-col :offset="4" :span="6">
           <logo />
         </el-col>
-        <el-col :span="2">
-          <el-menu router :default-active="$route.path" mode="horizontal">
-            <el-menu-item :index="`/${this.$route.params.lang}/agent`">{{ $t("nav.agent") }}</el-menu-item>
-          </el-menu>
-        </el-col>
         <el-col :offset="5">
           <el-menu router :default-active="$route.path" mode="horizontal">
             <el-menu-item index="lang">
@@ -18,8 +13,14 @@
                 <el-option value="en-US" label="English"></el-option>
               </el-select>
             </el-menu-item>
-            <el-menu-item :index="`/${this.$route.params.lang}/login`">{{ $t("nav.login") }}</el-menu-item>
-            <el-menu-item :index="`/${this.$route.params.lang}/regist`">{{ $t("nav.regist") }}</el-menu-item>
+            <template v-if="display_name !== null">
+              <el-menu-item :index="`/${this.$route.params.lang}/user`">{{ display_name }}</el-menu-item>
+              <el-menu-item :index="`/${this.$route.params.lang}/logout`">{{ $t("user.logout") }}</el-menu-item>
+            </template>
+            <template v-else>
+              <el-menu-item :index="`/${this.$route.params.lang}/login`">{{ $t("user.login") }}</el-menu-item>
+              <el-menu-item :index="`/${this.$route.params.lang}/regist`">{{ $t("user.regist") }}</el-menu-item>
+            </template>
           </el-menu>
         </el-col>
       </el-row>
@@ -41,11 +42,13 @@ export default {
       this.lang = this.$route.params.lang;
       localStorage.setItem("lang", this.lang);
       this.$i18n.locale = this.lang;
+      this.display_name = localStorage.getItem("display_name");
     }
   },
   data() {
     return {
-      lang: "en-US"
+      lang: "en-US",
+      display_name: null
     };
   },
   methods: {

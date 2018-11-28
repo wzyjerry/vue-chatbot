@@ -10,7 +10,7 @@
             <el-input type="password" v-model="user.password" :placeholder="$t('user.password')" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm">{{ $t("nav.login") }}</el-button>
+            <el-button type="primary" @click="submitForm">{{ $t("user.login") }}</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -23,7 +23,7 @@ import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("user");
 
 export default {
-  name: "Regist",
+  name: "Login",
   data: function() {
     return {
       user: {},
@@ -64,6 +64,7 @@ export default {
           this.login(this.user)
             .then(data => {
               localStorage.setItem("api_key", data.api_key);
+              localStorage.setItem("display_name", data.display_name);
               this.$router.push({ name: "home" });
             })
             .catch(() => {

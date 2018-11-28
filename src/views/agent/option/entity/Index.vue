@@ -2,6 +2,7 @@
   <el-main>
     <template v-if="entityList">
       <el-table :data="entityList" :height="500">
+        <el-table-column type="index" width="50"/>
         <el-table-column prop="name" :label="$t('entity.name')"/>
         <el-table-column prop="description" :label="$t('entity.description')"/>
         <el-table-column width="160px">

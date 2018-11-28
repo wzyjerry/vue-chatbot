@@ -46,11 +46,13 @@ export default function(source) {
   // 计算最大标签长度
   const labelLength = [];
   nodes.forEach(function(d) {
-    labelLength.push((d.data.name || d.data.intent || d.data.type).length);
+    labelLength.push(
+      (d.data.name || d.data.intent || d.data.type || "holder").length
+    );
   });
   const maxLabelLength = d3.max(labelLength);
   // 配置树布局产生器，节点高度根据最大标签长度计算，宽度固定为25像素
-  const tree = d3.tree().nodeSize([25, maxLabelLength * 8]);
+  const tree = d3.tree().nodeSize([25, maxLabelLength * 12]);
   // 布局
   root = tree(root);
   // 删除选中点

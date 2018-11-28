@@ -15,9 +15,7 @@ export default {
     testMessage: "Hello, world~!"
   },
   nav: {
-    agent: "Agent",
-    login: "Login",
-    regist: "Regist"
+    agent: "Agent"
   },
   aside: {
     setting: "Setting",
@@ -26,6 +24,9 @@ export default {
     train: "Train"
   },
   user: {
+    login: "Login",
+    regist: "Regist",
+    logout: "Logout",
     username: "Username",
     password: "Password",
     confirm: "Confirm Password",
@@ -34,11 +35,13 @@ export default {
     requireConfirm: "Please enter Password again",
     confirmFail: "Confirm password does not match the password",
     loginError: "Login failed",
-    registError: "Regist failed"
+    registError: "Regist failed",
+    edit: "If you only change the display name, leave the password blank"
   },
   agent: {
     name: "Agent Name",
     description: "Description",
+    interactive: "Interactive Page URL",
     webhook: "Webhook",
     index: {
       create: "Create Agent"
