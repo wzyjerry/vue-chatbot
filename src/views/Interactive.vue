@@ -15,6 +15,8 @@ import ReactDOM from "react-dom";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ChatBot, { Loading } from "react-simple-chatbot";
+import { Button } from "element-react";
+import "element-theme-default";
 
 class DBPedia extends Component {
   constructor(props) {
@@ -74,7 +76,9 @@ class DBPedia extends Component {
             }}
           >
             {!trigger && (
-              <button onClick={() => this.triggetNext()}>Search Again</button>
+              <Button type="primary" onClick={() => this.triggetNext()}>
+                Search Again
+              </Button>
             )}
           </div>
         )}
