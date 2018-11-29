@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["Home"],{bb51:function(e,n,o){"use strict";o.r(n);var t=function(){var e=this,n=e.$createElement,o=e._self._c||n;return o("el-container",[o("el-main",[o("h1",[e._v("Home")])])],1)},l=[],a={name:"Home"},i=a,u=o("2877"),c=Object(u["a"])(i,t,l,!1,null,null,null);c.options.__file="Home.vue";n["default"]=c.exports}}]);
-//# sourceMappingURL=Home.23ad5e00.js.map
