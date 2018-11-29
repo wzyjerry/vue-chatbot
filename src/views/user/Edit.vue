@@ -9,7 +9,7 @@
       <el-col :span="8">
         <el-form status-icon :model="user" ref="user" label-width="200px" :rules="rules" class="form">
           <el-form-item :label="$t('user.display')" prop="display">
-            <el-input v-model="user.display" :placeholder="$t('user.display')"></el-input>
+            <el-input v-model="user.display_name" :placeholder="$t('user.display')"></el-input>
           </el-form-item>         
           <el-form-item :label="$t('user.password')" prop="password">
             <el-input type="password" v-model="user.password" :placeholder="$t('user.password')" autocomplete="off"></el-input>
