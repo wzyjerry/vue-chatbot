@@ -15,7 +15,7 @@ import ReactDOM from "react-dom";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ChatBot, { Loading } from "react-simple-chatbot";
-import { Button } from "element-react";
+import { Button, Input } from "element-react";
 import "element-theme-default";
 
 class DBPedia extends Component {
@@ -45,7 +45,7 @@ class DBPedia extends Component {
         const data = response.data;
         self.setState({
           loading: false,
-          result: data.reply
+          result: JSON.stringify(data, null, 4)
         });
       })
       .catch(() => {
@@ -66,8 +66,16 @@ class DBPedia extends Component {
     const { trigger, loading, result } = this.state;
 
     return (
-      <div>
-        {loading ? <Loading /> : result}
+      <div
+        style={{
+          width: "100%"
+        }}
+      >
+        {loading ? (
+          <Loading />
+        ) : (
+          <Input type="textarea" autosize={true} value={result} />
+        )}
         {!loading && (
           <div
             style={{
@@ -101,7 +109,7 @@ export default {
   name: "Interactive",
   methods: {
     ...mapActions(["question"]),
-    ...agent.mapActions(["view"])
+    // ...agent.mapActions(["view"])
   },
   data() {
     return {
@@ -109,12 +117,12 @@ export default {
     };
   },
   async mounted() {
-    this.agent = await this.view(this.$route.params.agentId);
+    // this.agent = await this.view(this.$route.params.agentId);
     ReactDOM.render(
       <ChatBot
         recognitionEnable={true}
-        speechSynthesis={{ enable: true, lang: "en" }}
-        headerTitle={this.agent.name}
+        // speechSynthesis={{ enable: true, lang: "en" }}
+        // headerTitle={this.agent.name}
         steps={[
           {
             id: "begin",
