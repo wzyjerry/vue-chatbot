@@ -9,4 +9,4 @@ Chatbot
 引入[react-simple-chatbot](https://lucasbassetti.com.br/react-simple-chatbot/#/)
 
 ---
-TODO: README
+部署：python -m http.server 60000
