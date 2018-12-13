@@ -10,8 +10,8 @@
 <script crossorigin>
 import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("interactive");
-const agent = createNamespacedHelpers("agent");
 import ReactDOM from "react-dom";
+// eslint-disable-next-line
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ChatBot, { Loading } from "react-simple-chatbot";
@@ -108,8 +108,7 @@ DBPedia.defaultProps = {
 export default {
   name: "Interactive",
   methods: {
-    ...mapActions(["question"]),
-    // ...agent.mapActions(["view"])
+    ...mapActions(["question"])
   },
   data() {
     return {
@@ -117,12 +116,9 @@ export default {
     };
   },
   async mounted() {
-    // this.agent = await this.view(this.$route.params.agentId);
     ReactDOM.render(
       <ChatBot
         recognitionEnable={true}
-        // speechSynthesis={{ enable: true, lang: "en" }}
-        // headerTitle={this.agent.name}
         steps={[
           {
             id: "begin",
