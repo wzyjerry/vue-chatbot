@@ -2,6 +2,7 @@
   <el-main>
     <template v-if="entityList">
       <el-table :data="entityList" :height="500">
+        <el-table-column type="index" width="50"/>
         <el-table-column prop="name" :label="$t('entity.name')"/>
         <el-table-column prop="description" :label="$t('entity.description')"/>
         <el-table-column width="160px">
@@ -40,40 +41,44 @@ export default {
         }
       });
     },
-    removeConfirm(row) {
-      this.$confirm(
-        this.$t("entity.delete.info", [row.name]),
-        this.$t("entity.delete.title"),
-        {
-          confirmButtonText: this.$t("common.delete"),
-          cancelButtonText: this.$t("common.cancel"),
-          type: "warning"
-        }
-      )
-        .then(() => {
-          this.remove({
+    async removeConfirm(row) {
+      try {
+        await this.$confirm(
+          this.$t("entity.delete.info", [row.name]),
+          this.$t("entity.delete.title"),
+          {
+            confirmButtonText: this.$t("common.delete"),
+            cancelButtonText: this.$t("common.cancel"),
+            type: "warning"
+          }
+        );
+        try {
+          await this.remove({
             agentId: this.$route.params.agentId,
             id: row.id
-          }).then(() => {
-            this.list({ agentId: this.$route.params.agentId }).then(
-              entityList => {
-                this.entityList = entityList;
-              }
-            );
           });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: this.$t("common.canceled")
+          this.entityList = await this.list({
+            agentId: this.$route.params.agentId
           });
+        } catch {
+          this.$router.push({ name: "login" });
+        }
+      } catch {
+        this.$message({
+          type: "info",
+          message: this.$t("common.canceled")
         });
+      }
     }
   },
-  mounted: function() {
-    this.list({ agentId: this.$route.params.agentId }).then(entityList => {
-      this.entityList = entityList;
-    });
+  async mounted() {
+    try {
+      this.entityList = await this.list({
+        agentId: this.$route.params.agentId
+      });
+    } catch {
+      this.$router.push({ name: "login" });
+    }
   }
 };
 </script>

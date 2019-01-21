@@ -88,7 +88,7 @@ export default {
           }).then(() => {
             this.$message({
               type: "success",
-              message: "Saved"
+              message: this.$t("common.saved")
             });
           });
         } else {
@@ -109,8 +109,9 @@ export default {
         }
       )
         .then(() => {
-          this.remove(this.$route.params.agentId);
-          this.$router.push({ name: "agentIndex" });
+          this.remove(this.$route.params.agentId).then(() => {
+            this.$router.push({ name: "agentIndex" });
+          });
         })
         .catch(() => {
           this.$message({

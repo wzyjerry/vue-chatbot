@@ -43,18 +43,18 @@
     <el-collapse-item
       name="content"
       title="Content Settings">
-       <!-- 是否为实体 -->
+       <!-- 是否为语义槽 -->
       <el-form-item label="Content Type">
         <el-switch
           style="margin-top: 30px;"
-          v-model="selectedNode.data.isEntity"
-          active-text="Entity"
+          v-model="selectedNode.data.isSlot"
+          active-text="Slot"
           inactive-text="Content">
         </el-switch>
       </el-form-item>
       <!-- 实体类型 -->
       <el-form-item
-        v-if="selectedNode.data.isEntity"
+        v-if="selectedNode.data.isSlot"
         label="Entity">
         <el-select v-model="selectedNode.data.entity" filterable placeholder="Select Entity">
           <el-option
@@ -64,6 +64,15 @@
             :value="entity.id">
           </el-option>
         </el-select>
+      </el-form-item>
+      <!-- 语义槽名称 -->
+      <el-form-item
+        v-if="selectedNode.data.isSlot"
+        label="Slot">
+        <el-input
+          v-model="selectedNode.data.slot"
+          placeholder="Slot"
+          clearable/>
       </el-form-item>
       <!-- 内容 -->
       <el-form-item

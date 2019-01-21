@@ -13,7 +13,7 @@ const actions = {
     });
   },
   remove: (_, id) => {
-    agent.remove(id);
+    return agent.remove(id);
   },
   list: () => {
     return agent.list().then(response => {

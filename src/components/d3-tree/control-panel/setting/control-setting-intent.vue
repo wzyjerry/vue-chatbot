@@ -14,6 +14,13 @@
       <el-form-item label="Childrens">
         <el-tag type="info">{{ childrenLength }}</el-tag>
       </el-form-item>
+      <!-- 描述 -->
+      <el-form-item label="Description">
+        <el-input
+          v-model="selectedNode.data.description"
+          placeholder="Description"
+          clearable/>
+      </el-form-item>
       <!-- 兴趣 -->
       <el-form-item label="Intent">
         <el-input

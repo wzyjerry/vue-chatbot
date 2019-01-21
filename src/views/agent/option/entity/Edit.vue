@@ -1,12 +1,20 @@
 <template>
   <el-main>
-    <el-col :offset="4" :span="12">
+    <el-col :span="16">
       <el-form :model="entity" ref="entity" label-width="200px" :rules="rules">
         <el-form-item label="ID" prop="id">
           <span>{{ entity.id }}</span>
         </el-form-item>
         <el-form-item :label="$t('entity.name')" prop="name">
           <el-input v-model="entity.name" :placeholder="$t('entity.name')"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('entity.description')">
+          <el-input
+            type="textarea"
+            autosize
+            :placeholder="$t('entity.description')"
+            v-model="entity.description">
+          </el-input>
         </el-form-item>
         <el-form-item :label="$t('entity.upload.name')">
           <el-upload

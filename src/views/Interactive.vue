@@ -8,50 +8,141 @@
 </template>
 
 <script crossorigin>
-import React from "react";
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("interactive");
 import ReactDOM from "react-dom";
-import ChatBot from "react-simple-chatbot";
+// eslint-disable-next-line
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import ChatBot, { Loading } from "react-simple-chatbot";
+import { Button, Input } from "element-react";
+import "element-theme-default";
+
+class DBPedia extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+      result: "",
+      trigger: false
+    };
+
+    this.triggetNext = this.triggetNext.bind(this);
+  }
+
+  componentWillMount() {
+    const self = this;
+    const { steps, vue } = this.props;
+    const search = steps.search.value;
+
+    vue
+      .question({
+        agentId: vue.$route.params.agentId,
+        data: search
+      })
+      .then(response => {
+        const data = response.data;
+        self.setState({
+          loading: false,
+          result: JSON.stringify(data, null, 4)
+        });
+      })
+      .catch(() => {
+        self.setState({
+          loading: false,
+          result: "Something error"
+        });
+      });
+  }
+
+  triggetNext() {
+    this.setState({ trigger: true }, () => {
+      this.props.triggerNextStep();
+    });
+  }
+
+  render() {
+    const { trigger, loading, result } = this.state;
+
+    return (
+      <div
+        style={{
+          width: "100%"
+        }}
+      >
+        {loading ? (
+          <Loading />
+        ) : (
+          <Input type="textarea" autosize={true} value={result} />
+        )}
+        {!loading && (
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: 20
+            }}
+          >
+            {!trigger && (
+              <Button type="primary" onClick={() => this.triggetNext()}>
+                Search Again
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+DBPedia.propTypes = {
+  steps: PropTypes.object,
+  triggerNextStep: PropTypes.func
+};
+
+DBPedia.defaultProps = {
+  steps: undefined,
+  triggerNextStep: undefined
+};
 
 export default {
-  name: "Test",
-  mounted() {
-    class PotentialError extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = { error: false };
-      }
-      componentDidCatch(error, info) {
-        this.setState({ error, info });
-      }
-      render() {
-        if (this.state.error) {
-          return <h1>Error: {this.state.error.toString()}</h1>;
-        }
-        return this.props.children;
-      }
-    }
+  name: "Interactive",
+  methods: {
+    ...mapActions(["question"])
+  },
+  data() {
+    return {
+      agent: undefined
+    };
+  },
+  async mounted() {
     ReactDOM.render(
-      <PotentialError>
-        <ChatBot
-          steps={[
-            {
-              id: "1",
-              message: "What is your name?",
-              trigger: "2"
-            },
-            {
-              id: "2",
-              user: true,
-              trigger: "3"
-            },
-            {
-              id: "3",
-              message: "Hi {previousValue}, nice to meet you!",
-              end: true
-            }
-          ]}
-        />
-      </PotentialError>,
+      <ChatBot
+        recognitionEnable={true}
+        steps={[
+          {
+            id: "begin",
+            message: "Welcome to chatbot!",
+            trigger: "1"
+          },
+          {
+            id: "1",
+            message: "Enter what you want to know about",
+            trigger: "search"
+          },
+          {
+            id: "search",
+            user: true,
+            trigger: "3"
+          },
+          {
+            id: "3",
+            component: <DBPedia vue={this} />,
+            waitAction: true,
+            trigger: "1"
+          }
+        ]}
+      />,
       document.getElementById("root")
     );
   }

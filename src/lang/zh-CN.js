@@ -15,17 +15,18 @@ export default {
     testMessage: "你好，世界~！"
   },
   nav: {
-    agent: "代理",
-    login: "登录",
-    regist: "注册"
+    agent: "代理"
   },
   aside: {
     setting: "设置",
     entities: "实体",
-    intents: "兴趣",
+    intents: "意图",
     train: "训练"
   },
   user: {
+    login: "登录",
+    regist: "注册",
+    logout: "注销",
     username: "用户名",
     password: "密码",
     confirm: "确认密码",
@@ -34,11 +35,13 @@ export default {
     requireConfirm: "请再次输入密码",
     confirmFail: "两次输入密码不一致",
     loginError: "登录失败",
-    registError: "注册失败"
+    registError: "注册失败",
+    edit: "如果只修改显示名，密码请留空"
   },
   agent: {
     name: "代理名称",
     description: "描述",
+    interactive: "交互界面网址",
     webhook: "回调URL",
     index: {
       create: "创建代理"

@@ -4,8 +4,14 @@
       <el-col :span="16">
         <template v-if="agentList">
           <el-table :data="agentList" :height="500">
-            <el-table-column prop="name" width="200px" :label="$t('agent.name')"/>
-            <el-table-column prop="description" :label="$t('agent.description')"/>
+            <el-table-column type="index" width="50"/>
+            <el-table-column prop="name" width="150" :label="$t('agent.name')"/>
+            <el-table-column prop="description" width="200" :label="$t('agent.description')"/>
+            <el-table-column :label="$t('agent.interactive')">
+              <template slot-scope="scope">
+                <a :href="`${origin}/#/${$route.params.lang}/interactive/${scope.row.id}`">{{ `${origin}/#/${$route.params.lang}/interactive/${scope.row.id}` }}</a>
+              </template>
+            </el-table-column>
             <el-table-column width="80px">
               <template slot-scope="scope">
                 <el-button type="primary" icon="el-icon-setting" circle @click="editAgent(scope.row)"></el-button>
@@ -29,7 +35,8 @@ export default {
   name: "Index",
   data: function() {
     return {
-      agentList: undefined
+      agentList: undefined,
+      origin: location.origin
     };
   },
   methods: {
@@ -41,11 +48,16 @@ export default {
       });
     }
   },
-  mounted: function() {
-    this.list().then(agentList => {
-      console.debug(agentList);
-      this.agentList = agentList;
-    });
+  mounted() {
+    this.list()
+      .then(agentList => {
+        this.agentList = agentList;
+      })
+      .catch(() => {
+        this.$router.push({
+          name: "login"
+        });
+      });
   }
 };
 </script>

@@ -2,8 +2,9 @@
   <el-main>
     <template v-if="intentList">
       <el-table :data="intentList">
-        <el-table-column prop="index" label="#" width="80px"/>
+        <el-table-column type="index" width="50"/>
         <el-table-column prop="name" label="Name"/>
+        <el-table-column prop="description" label="Description"/>
         <el-table-column prop="weight" label="Weight"/>
         <el-table-column width="160px">
           <template slot-scope="scope">
@@ -65,9 +66,10 @@ export default {
           this.remove({
             agentId: this.$route.params.agentId,
             id: row.id
+          }).then(() => {
+            this.id = 1;
+            this.loadPage(this.id);
           });
-          this.id = 1;
-          this.loadPage(this.id);
         })
         .catch(() => {
           this.$message({
